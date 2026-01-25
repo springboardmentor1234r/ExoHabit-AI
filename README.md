@@ -16,3 +16,4 @@
 - [x] **Phase 0:** Project Initialization & Environment Setup
 - [x] **Milestone 1:** Data Exploration & Preliminary Analysis (Completed)
 - [x] **Milestone 2:** Data Preprocessing & Feature Engineering (Completed)
+Phase 0 completed
