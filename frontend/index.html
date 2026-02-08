@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ExoHabit-AI</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h2 class="text-center">Exoplanet Habitability Predictor</h2>
+
+    <form>
+        <input class="form-control mb-2" id="pl_rade" placeholder="Planet Radius">
+        <input class="form-control mb-2" id="pl_bmasse" placeholder="Planet Mass">
+        <input class="form-control mb-2" id="pl_dens" placeholder="Planet Density">
+        <input class="form-control mb-2" id="pl_eqt" placeholder="Equilibrium Temperature">
+        <input class="form-control mb-2" id="pl_orbper" placeholder="Orbital Period">
+        <input class="form-control mb-2" id="st_teff" placeholder="Star Temperature">
+        <input class="form-control mb-2" id="st_lum" placeholder="Star Luminosity">
+        <input class="form-control mb-2" id="st_met" placeholder="Star Metallicity">
+
+        <button type="button" class="btn btn-primary w-100" onclick="predict()">Predict</button>
+    </form>
+
+    <div class="mt-4 text-center">
+        <h4 id="result"></h4>
+    </div>
+</div>
+
+<script>
+function predict() {
+    fetch("/predict", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            pl_rade: parseFloat(pl_rade.value),
+            pl_bmasse: parseFloat(pl_bmasse.value),
+            pl_dens: parseFloat(pl_dens.value),
+            pl_eqt: parseFloat(pl_eqt.value),
+            pl_orbper: parseFloat(pl_orbper.value),
+            st_teff: parseFloat(st_teff.value),
+            st_lum: parseFloat(st_lum.value),
+            st_met: parseFloat(st_met.value)
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        result.innerHTML =
+          `Habitability Score: ${data.habitability_probability}<br>
+           Prediction: ${data.prediction}`;
+    });
+}
+</script>
+
+</body>
+</html>
