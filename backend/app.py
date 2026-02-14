@@ -381,27 +381,34 @@ def internal_error(error):
     }), 500
 
 
+# Load model at module level (works for both development and production with gunicorn)
+print("=" * 60)
+print("Exoplanet Habitability Prediction API")
+print("=" * 60)
+print(f"Loading model from: {MODEL_PATH}")
+print(f"Loading scaler from: {SCALER_PATH}")
+
+if load_model():
+    print("\n✓ Model loaded successfully!")
+    print("\nAvailable endpoints:")
+    print("  GET  /          - API information")
+    print("  GET  /health    - Health check")
+    print("  GET  /features  - List required features")
+    print("  POST /predict   - Single prediction")
+    print("  POST /batch-predict - Batch predictions")
+    print("\n" + "=" * 60)
+else:
+    print("\n✗ Failed to load model. Please ensure model files exist.")
+    print(f"Current directory: {os.getcwd()}")
+    print(f"Backend directory: {BACKEND_DIR}")
+    print(f"Files in backend: {os.listdir(BACKEND_DIR) if os.path.exists(BACKEND_DIR) else 'Directory not found'}")
+    print("\nExpected files:")
+    print(f"  - {MODEL_PATH}")
+    print(f"  - {SCALER_PATH}")
+
+
 if __name__ == '__main__':
-    print("=" * 60)
-    print("Exoplanet Habitability Prediction API")
-    print("=" * 60)
-    
-    if load_model():
-        print("\n✓ API ready to serve predictions!")
-        print("\nAvailable endpoints:")
-        print("  GET  /          - API information")
-        print("  GET  /health    - Health check")
-        print("  GET  /features  - List required features")
-        print("  POST /predict   - Single prediction")
-        print("  POST /batch-predict - Batch predictions")
-        print("\n" + "=" * 60)
-        # Use environment variable PORT for deployment platforms
-        port = int(os.environ.get('PORT', 5000))
-        debug_mode = os.environ.get('FLASK_ENV') != 'production'
-        app.run(host='0.0.0.0', port=port, debug=debug_mode)
-    else:
-        print("\n✗ Failed to load model. Please ensure model files exist.")
-        print("\nExpected files:")
-        print(f"  - {MODEL_PATH}")
-        print(f"  - {SCALER_PATH}")
-        exit(1)
+    # Use environment variable PORT for deployment platforms
+    port = int(os.environ.get('PORT', 5000))
+    debug_mode = os.environ.get('FLASK_ENV') != 'production'
+    app.run(host='0.0.0.0', port=port, debug=debug_mode)
