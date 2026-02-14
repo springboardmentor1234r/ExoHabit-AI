@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoplanet Explorer - Journey Beyond Our Solar System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">🪐</span>
+            <span class="brand-text">ExoExplore</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#hero" class="nav-link">Home</a></li>
+            <li><a href="#about" class="nav-link">What Are Exoplanets</a></li>
+            <li><a href="#famous" class="nav-link">Famous Exoplanets</a></li>
+            <li><a href="#aliens" class="nav-link">Search for Life</a></li>
+            <li><a href="#journey" class="nav-link">The Journey</a></li>
+            <li><a href="#movies" class="nav-link">In Pop Culture</a></li>
+            <li><a href="#prediction" class="nav-link nav-cta">Predict Habitability</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section with 3D Canvas -->
+    <section id="hero" class="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line">BEYOND OUR</span>
+                <span class="title-line highlight">SOLAR SYSTEM</span>
+            </h1>
+            <p class="hero-subtitle">
+                Discover thousands of worlds orbiting distant stars. 
+                Explore the possibility of life beyond Earth.
+            </p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" data-count="5600">0</span>
+                    <span class="stat-label">Confirmed Exoplanets</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-count="205">0</span>
+                    <span class="stat-label">Potentially Habitable</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-count="4.3">0</span>
+                    <span class="stat-label">Light Years to Proxima b</span>
+                </div>
+            </div>
+            <a href="#about" class="cta-button">
+                <span>Begin Journey</span>
+                <div class="btn-glow"></div>
+            </a>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- About Exoplanets Section -->
+    <section id="about" class="about section-dark">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Chapter 1</span>
+                <h2 class="section-title">What Are Exoplanets?</h2>
+                <p class="section-desc">Planets that orbit stars beyond our Sun</p>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-card" data-tilt>
+                    <div class="card-icon">🌍</div>
+                    <h3>Definition</h3>
+                    <p>An exoplanet is any planet beyond our solar system. Most orbit other stars, but free-floating exoplanets, called rogue planets, orbit the galactic center and are untethered to any star.</p>
+                </div>
+                
+                <div class="about-card" data-tilt>
+                    <div class="card-icon">🔭</div>
+                    <h3>Discovery Methods</h3>
+                    <p>Scientists use various methods: Transit method (detecting dimming of starlight), Radial velocity (measuring star wobble), Direct imaging, Microlensing, and Astrometry.</p>
+                </div>
+                
+                <div class="about-card" data-tilt>
+                    <div class="card-icon">🌡️</div>
+                    <h3>Habitable Zone</h3>
+                    <p>The "Goldilocks Zone" is the region around a star where conditions are just right for liquid water to exist on a planet's surface - neither too hot nor too cold.</p>
+                </div>
+                
+                <div class="about-card" data-tilt>
+                    <div class="card-icon">🚀</div>
+                    <h3>Kepler & TESS</h3>
+                    <p>NASA's Kepler and TESS missions have discovered thousands of exoplanets by staring at patches of sky and measuring the brightness of thousands of stars.</p>
+                </div>
+            </div>
+
+            <div class="discovery-timeline">
+                <h3 class="timeline-title">Discovery Timeline</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">1992</div>
+                        <div class="timeline-content">
+                            <h4>First Exoplanets Discovered</h4>
+                            <p>Radio astronomers discover two planets orbiting the pulsar PSR B1257+12</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1995</div>
+                        <div class="timeline-content">
+                            <h4>51 Pegasi b</h4>
+                            <p>First exoplanet discovered orbiting a sun-like star - a "hot Jupiter"</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2009</div>
+                        <div class="timeline-content">
+                            <h4>Kepler Mission</h4>
+                            <p>Kepler space telescope launches, revolutionizing exoplanet discovery</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2015</div>
+                        <div class="timeline-content">
+                            <h4>TRAPPIST-1 System</h4>
+                            <p>Seven Earth-sized planets discovered orbiting an ultra-cool dwarf star</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-content">
+                            <h4>James Webb Telescope</h4>
+                            <p>JWST begins operation, promising detailed exoplanet atmosphere analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Famous Exoplanets Section -->
+    <section id="famous" class="famous section-light">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Chapter 2</span>
+                <h2 class="section-title">Famous Exoplanets</h2>
+                <p class="section-desc">Meet the celebrities of the exoplanet world</p>
+            </div>
+
+            <div class="planet-showcase">
+                <div class="planet-card featured" data-planet="proxima">
+                    <div class="planet-visual">
+                        <div class="planet-3d proxima-b"></div>
+                    </div>
+                    <div class="planet-info">
+                        <h3 class="planet-name">Proxima Centauri b</h3>
+                        <span class="planet-tag">Closest Exoplanet</span>
+                        <p class="planet-desc">Our nearest neighbor, just 4.2 light-years away. Located in the habitable zone of a red dwarf star, this rocky world has captured humanity's imagination as our first potential interstellar destination.</p>
+                        <div class="planet-stats">
+                            <div class="p-stat">
+                                <span class="p-label">Distance</span>
+                                <span class="p-value">4.2 light-years</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="p-label">Orbital Period</span>
+                                <span class="p-value">11.2 days</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="p-label">Mass</span>
+                                <span class="p-value">1.17 Earth masses</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="planet-card" data-planet="trappist">
+                    <div class="planet-visual">
+                        <div class="planet-3d trappist-1e"></div>
+                    </div>
+                    <div class="planet-info">
+                        <h3 class="planet-name">TRAPPIST-1e</h3>
+                        <span class="planet-tag">Seven Earths</span>
+                        <p class="planet-desc">One of seven Earth-sized planets in the TRAPPIST-1 system. Located 40 light-years away, it's considered one of the most potentially habitable exoplanets discovered.</p>
+                        <div class="planet-stats">
+                            <div class="p-stat">
+                                <span class="p-label">Distance</span>
+                                <span class="p-value">40 light-years</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="p-label">Radius</span>
+                                <span class="p-value">0.92 Earth radii</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="p-label">Temperature</span>
+                                <span class="p-value">251 K</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="planet-card" data-planet="kepler">
+                    <div class="planet-visual">
+                        <div class="planet-3d kepler-452b"></div>
+                    </div>
+                    <div class="planet-info">
+                        <h3 class="planet-name">Kepler-452b</h3>
+                        <span class="planet-tag">Earth's Cousin</span>
+                        <p class="planet-desc">Often called "Earth's older cousin," this super-Earth orbits a sun-like star in the habitable zone. It's about 1.6 times Earth's radius and 60% larger in mass.</p>
+                        <div class="planet-stats">
+                            <div class="p-stat">
+                                <span class="p-label">Distance</span>
+                                <span class="p-value">1,400 light-years</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="p-label">Orbital Period</span>
+                                <span class="p-value">385 days</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="p-label">Age</span>
+                                <span class="p-value">6 billion years</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="planet-card" data-planet="wasp">
+                    <div class="planet-visual">
+                        <div class="planet-3d wasp-12b"></div>
+                    </div>
+                    <div class="planet-info">
+                        <h3 class="planet-name">WASP-12b</h3>
+                        <span class="planet-tag">The Doom Planet</span>
+                        <p class="planet-desc">A "hot Jupiter" being consumed by its star. Tidally locked and stretched into an egg shape, this dark planet absorbs 94% of light, making it pitch black with a temperature of 2,210°C.</p>
+                        <div class="planet-stats">
+                            <div class="p-stat">
+                                <span class="p-label">Distance</span>
+                                <span class="p-value">870 light-years</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="p-label">Temperature</span>
+                                <span class="p-value">2,210°C</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="p-label">Status</span>
+                                <span class="p-value">Being destroyed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="planet-card" data-planet="k2">
+                    <div class="planet-visual">
+                        <div class="planet-3d k2-18b"></div>
+                    </div>
+                    <div class="planet-info">
+                        <h3 class="planet-name">K2-18b</h3>
+                        <span class="planet-tag">Water World</span>
+                        <p class="planet-desc">A super-Earth with water vapor detected in its atmosphere. Located 124 light-years away, it's 2.6 times Earth's radius and could potentially have a water ocean.</p>
+                        <div class="planet-stats">
+                            <div class="p-stat">
+                                <span class="p-label">Distance</span>
+                                <span class="p-value">124 light-years</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="p-label">Mass</span>
+                                <span class="p-value">8.6 Earth masses</span>
+                            </div>
+                            <div class="p-stat">
+                                <span class="p-label">Atmosphere</span>
+                                <span class="p-value">Water vapor detected</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search for Aliens Section -->
+    <section id="aliens" class="aliens section-dark">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Chapter 3</span>
+                <h2 class="section-title">The Search for Life</h2>
+                <p class="section-desc">Are we alone in the universe?</p>
+            </div>
+
+            <div class="aliens-content">
+                <div class="biosignature-grid">
+                    <div class="bio-card">
+                        <div class="bio-icon">💧</div>
+                        <h3>Water</h3>
+                        <p>Essential for all known life forms. We look for water vapor, liquid water oceans, and ice on exoplanets and moons.</p>
+                    </div>
+                    <div class="bio-card">
+                        <div class="bio-icon">🫁</div>
+                        <h3>Oxygen</h3>
+                        <p>While not definitive proof, high oxygen levels in an atmosphere could indicate photosynthetic life.</p>
+                    </div>
+                    <div class="bio-card">
+                        <div class="bio-icon">🌿</div>
+                        <h3>Methane</h3>
+                        <p>On Earth, 90% of atmospheric methane is produced by living organisms. Detecting it on exoplanets is promising.</p>
+                    </div>
+                    <div class="bio-card">
+                        <div class="bio-icon">🦠</div>
+                        <h3>Bio-signatures</h3>
+                        <p>Specific chemical combinations that suggest biological processes, like phosphine in Venus's atmosphere.</p>
+                    </div>
+                </div>
+
+                <div class="seti-section">
+                    <h3 class="seti-title">SETI & The Search Continues</h3>
+                    <p class="seti-desc">The Search for Extraterrestrial Intelligence (SETI) listens for radio signals from advanced civilizations. Projects like Breakthrough Listen are scanning millions of stars for artificial signals.</p>
+                    
+                    <div class="drake-equation">
+                        <h4>The Drake Equation</h4>
+                        <div class="equation">N = R* × fp × ne × fl × fi × fc × L</div>
+                        <p class="equation-desc">Estimates the number of active, communicative extraterrestrial civilizations in the Milky Way galaxy.</p>
+                        <div class="equation-variables">
+                            <div class="var"><span>R*</span> = Rate of star formation</div>
+                            <div class="var"><span>fp</span> = Fraction with planets</div>
+                            <div class="var"><span>ne</span> = Planets that can support life</div>
+                            <div class="var"><span>fl</span> = Fraction where life develops</div>
+                            <div class="var"><span>fi</span> = Fraction with intelligent life</div>
+                            <div class="var"><span>fc</span> = Fraction that communicate</div>
+                            <div class="var"><span>L</span> = Length of time they release detectable signals</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fermi-paradox">
+                    <h3>The Fermi Paradox</h3>
+                    <blockquote>
+                        "Where is everybody?"
+                        <cite>- Enrico Fermi, 1950</cite>
+                    </blockquote>
+                    <p>Given the billions of stars and high probability of habitable planets, why haven't we found any signs of extraterrestrial civilizations? Possible solutions include:</p>
+                    <ul class="parodox-list">
+                        <li>We're alone (Rare Earth hypothesis)</li>
+                        <li>Civilizations destroy themselves before achieving interstellar travel</li>
+                        <li>They exist but choose not to communicate</li>
+                        <li>They communicate in ways we don't understand</li>
+                        <li>We're looking in the wrong places or at the wrong times</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey to Exoplanets Section -->
+    <section id="journey" class="journey section-light">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Chapter 4</span>
+                <h2 class="section-title">The Journey There</h2>
+                <p class="section-desc">How long would it take to reach these distant worlds?</p>
+            </div>
+
+            <div class="journey-visualization">
+                <div class="distance-scale">
+                    <div class="scale-marker sun">☀️ Our Sun</div>
+                    <div class="scale-line"></div>
+                    <div class="scale-marker proxima">🪐 Proxima b<br><small>4.2 ly</small></div>
+                    <div class="scale-marker trappist">🪐 TRAPPIST-1<br><small>40 ly</small></div>
+                    <div class="scale-marker kepler">🪐 Kepler-452b<br><small>1,400 ly</small></div>
+                </div>
+
+                <div class="travel-methods">
+                    <h3>Travel Methods Comparison</h3>
+                    <div class="methods-grid">
+                        <div class="method-card">
+                            <div class="method-icon">🚀</div>
+                            <h4>Voyager 1</h4>
+                            <span class="method-speed">17 km/s</span>
+                            <div class="travel-time">
+                                <div class="to-proxima">To Proxima b: <strong>73,000 years</strong></div>
+                            </div>
+                        </div>
+                        <div class="method-card">
+                            <div class="method-icon">🛸</div>
+                            <h4>New Horizons</h4>
+                            <span class="method-speed">16 km/s</span>
+                            <div class="travel-time">
+                                <div class="to-proxima">To Proxima b: <strong>78,000 years</strong></div>
+                            </div>
+                        </div>
+                        <div class="method-card">
+                            <div class="method-icon">⚡</div>
+                            <h4>Breakthrough Starshot</h4>
+                            <span class="method-speed">20% light speed</span>
+                            <div class="travel-time">
+                                <div class="to-proxima">To Proxima b: <strong>~20 years</strong></div>
+                            </div>
+                            <p class="method-note">Proposed nano-spacecraft using light sails</p>
+                        </div>
+                        <div class="method-card future">
+                            <div class="method-icon">🔮</div>
+                            <h4>Hypothetical</h4>
+                            <span class="method-speed">50% light speed</span>
+                            <div class="travel-time">
+                                <div class="to-proxima">To Proxima b: <strong>~8 years</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenges-section">
+                    <h3>Challenges of Interstellar Travel</h3>
+                    <div class="challenges-grid">
+                        <div class="challenge">
+                            <span class="challenge-icon">☢️</span>
+                            <h4>Radiation</h4>
+                            <p>Cosmic rays would damage DNA and electronics over long journeys</p>
+                        </div>
+                        <div class="challenge">
+                            <span class="challenge-icon">⏱️</span>
+                            <h4>Time Dilation</h4>
+                            <p>At near-light speeds, time passes differently for travelers vs. Earth</p>
+                        </div>
+                        <div class="challenge">
+                            <span class="challenge-icon">🍎</span>
+                            <h4>Life Support</h4>
+                            <p>Multi-generational ships require sustainable food, water, and air</p>
+                        </div>
+                        <div class="challenge">
+                            <span class="challenge-icon">⚡</span>
+                            <h4>Energy</h4>
+                            <p>Immense energy requirements to reach even a fraction of light speed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Movies Section -->
+    <section id="movies" class="movies section-dark">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Chapter 5</span>
+                <h2 class="section-title">In Pop Culture</h2>
+                <p class="section-desc">Exoplanets in movies, TV, and books</p>
+            </div>
+
+            <div class="movies-grid">
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <div class="poster-placeholder interstellar">
+                            <span>🎬</span>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <h3>Interstellar (2014)</h3>
+                        <span class="movie-year">Director: Christopher Nolan</span>
+                        <p>Explores planets orbiting a supermassive black hole, including water world Miller's planet and ice cloud Mann's planet.</p>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <div class="poster-placeholder arrival">
+                            <span>👽</span>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <h3>Arrival (2016)</h3>
+                        <span class="movie-year">Director: Denis Villeneuve</span>
+                        <p>Linguists attempt to communicate with aliens who arrive on Earth in mysterious spacecraft.</p>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <div class="poster-placeholder avatar">
+                            <span>🌙</span>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <h3>Avatar (2009)</h3>
+                        <span class="movie-year">Director: James Cameron</span>
+                        <p>Set on Pandora, a moon of the gas giant Polyphemus orbiting Alpha Centauri A.</p>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <div class="poster-placeholder martian">
+                            <span>🔴</span>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <h3>The Martian (2015)</h3>
+                        <span class="movie-year">Director: Ridley Scott</span>
+                        <p>An astronaut stranded on Mars must survive while awaiting rescue.</p>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <div class="poster-placeholder dune">
+                            <span>🏜️</span>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <h3>Dune (2021)</h3>
+                        <span class="movie-year">Director: Denis Villeneuve</span>
+                        <p>Epic tale set on Arrakis, a desert planet and sole source of the spice melange.</p>
+                    </div>
+                </div>
+
+                <div class="movie-card">
+                    <div class="movie-poster">
+                        <div class="poster-placeholder expanse">
+                            <span>🚀</span>
+                        </div>
+                    </div>
+                    <div class="movie-info">
+                        <h3>The Expanse (2015-2022)</h3>
+                        <span class="movie-year">TV Series</span>
+                        <p>Political thriller set in a colonized solar system with hints of alien technology.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fun Facts Section -->
+            <div class="fun-facts-section">
+                <h3>🎬 Did You Know?</h3>
+                <div class="facts-grid">
+                    <div class="fact-card">
+                        <div class="fact-icon">🎵</div>
+                        <h4>Music in Space</h4>
+                        <p>The Voyager Golden Record, launched in 1977, contains music from Earth including Beethoven, Chuck Berry, and traditional music from various cultures. It's currently in interstellar space!</p>
+                    </div>
+                    <div class="fact-card">
+                        <div class="fact-icon">🎮</div>
+                        <h4>Video Games</h4>
+                        <p>Games like "No Man's Sky" procedurally generate 18 quintillion planets, more than all the grains of sand on Earth. Each planet has unique flora, fauna, and geography.</p>
+                    </div>
+                    <div class="fact-card">
+                        <div class="fact-icon">📺</div>
+                        <h4>TV Trivia</h4>
+                        <p>"Star Trek" has predicted or inspired numerous real technologies including cell phones, tablets, automatic doors, and even NASA's naming of the first Space Shuttle "Enterprise."</p>
+                    </div>
+                    <div class="fact-card">
+                        <div class="fact-icon">🎨</div>
+                        <h4>Art & Design</h4>
+                        <p>Sci-fi concept artists often work with NASA scientists to create realistic depictions of exoplanets. The visuals in movies like "Interstellar" were based on actual physics equations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="books-section">
+                <h3>📚 Recommended Reading</h3>
+                <div class="books-list">
+                    <div class="book">
+                        <span class="book-title">"The Three-Body Problem"</span>
+                        <span class="book-author">by Liu Cixin</span>
+                        <p class="book-desc">First Chinese novel to win the Hugo Award. Explores first contact with an alien civilization and the cultural revolution.</p>
+                    </div>
+                    <div class="book">
+                        <span class="book-title">"Project Hail Mary"</span>
+                        <span class="book-author">by Andy Weir</span>
+                        <p class="book-desc">From the author of "The Martian," an astronaut must save Earth from an ice age by traveling to another star system.</p>
+                    </div>
+                    <div class="book">
+                        <span class="book-title">"Rendezvous with Rama"</span>
+                        <span class="book-author">by Arthur C. Clarke</span>
+                        <p class="book-desc">A mysterious cylindrical alien spacecraft enters our solar system. A classic of "big dumb object" science fiction.</p>
+                    </div>
+                    <div class="book">
+                        <span class="book-title">"The Left Hand of Darkness"</span>
+                        <span class="book-author">by Ursula K. Le Guin</span>
+                        <p class="book-desc">Set on the planet Gethen, where inhabitants are ambisexual. Explores gender, politics, and what it means to be human.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quote Section -->
+            <div class="quote-section">
+                <blockquote>
+                    "The universe is not only queerer than we suppose, but queerer than we can suppose."
+                </blockquote>
+                <cite>— J.B.S. Haldane, biologist</cite>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prediction Dashboard Section -->
+    <section id="prediction" class="prediction section-gradient">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Chapter 6</span>
+                <h2 class="section-title">Predict Habitability</h2>
+                <p class="section-desc">Use our ML model to analyze exoplanet data</p>
+            </div>
+
+            <div class="prediction-dashboard">
+                <div class="dashboard-grid">
+                    <!-- Input Form -->
+                    <div class="input-panel">
+                        <h3>Enter Planet Data</h3>
+                        <form id="prediction-form" class="prediction-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="pl_orbper">Orbital Period (days)</label>
+                                    <input type="number" id="pl_orbper" name="pl_orbper" step="0.01" required placeholder="365.25">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pl_rade">Planet Radius (Earth radii)</label>
+                                    <input type="number" id="pl_rade" name="pl_rade" step="0.01" required placeholder="1.0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pl_bmasse">Planet Mass (Earth masses)</label>
+                                    <input type="number" id="pl_bmasse" name="pl_bmasse" step="0.01" required placeholder="1.0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pl_eqt">Equilibrium Temp (K)</label>
+                                    <input type="number" id="pl_eqt" name="pl_eqt" step="0.1" required placeholder="288">
+                                </div>
+                                <div class="form-group">
+                                    <label for="st_teff">Stellar Temperature (K)</label>
+                                    <input type="number" id="st_teff" name="st_teff" step="1" required placeholder="5778">
+                                </div>
+                                <div class="form-group">
+                                    <label for="st_rad">Stellar Radius (Solar radii)</label>
+                                    <input type="number" id="st_rad" name="st_rad" step="0.01" required placeholder="1.0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="st_mass">Stellar Mass (Solar masses)</label>
+                                    <input type="number" id="st_mass" name="st_mass" step="0.01" required placeholder="1.0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sy_dist">System Distance (parsec)</label>
+                                    <input type="number" id="sy_dist" name="sy_dist" step="0.1" required placeholder="10.0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sy_snum">Number of Stars</label>
+                                    <input type="number" id="sy_snum" name="sy_snum" step="1" required placeholder="1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="sy_pnum">Number of Planets</label>
+                                    <input type="number" id="sy_pnum" name="sy_pnum" step="1" required placeholder="1">
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="predict-btn">
+                                    <span>Predict Habitability</span>
+                                    <div class="btn-loader"></div>
+                                </button>
+                                <button type="button" class="reset-btn" onclick="resetForm()">Reset</button>
+                                <button type="button" class="load-sample-btn" onclick="loadSampleData()">Load Sample</button>
+                            </div>
+                        </form>
+
+                        <div class="quick-presets">
+                            <h4>Quick Presets</h4>
+                            <div class="preset-buttons">
+                                <button class="preset-btn" onclick="loadPreset('earth')">🌍 Earth-like</button>
+                                <button class="preset-btn" onclick="loadPreset('mars')">🔴 Mars-like</button>
+                                <button class="preset-btn" onclick="loadPreset('jupiter')">🪐 Jupiter-like</button>
+                                <button class="preset-btn" onclick="loadPreset('proxima')">⭐ Proxima b</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Panel -->
+                    <div class="results-panel">
+                        <h3>Prediction Results</h3>
+                        <div id="results-content" class="results-content">
+                            <div class="results-placeholder">
+                                <span class="placeholder-icon">🔮</span>
+                                <p>Enter planet data and click "Predict" to see results</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visualizations -->
+                <div class="visualizations-section">
+                    <h3>Data Visualizations</h3>
+                    <div class="charts-grid">
+                        <div class="chart-container">
+                            <h4>Feature Importance</h4>
+                            <canvas id="featureImportanceChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h4>Habitability Distribution</h4>
+                            <canvas id="habitabilityChart"></canvas>
+                        </div>
+                        <div class="chart-container wide">
+                            <h4>Star-Planet Relationship</h4>
+                            <canvas id="starPlanetChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Planet Ranking -->
+                <div class="ranking-section">
+                    <h3>Top Habitable Candidates</h3>
+                    <div class="ranking-table-container">
+                        <table id="ranking-table" class="ranking-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Planet Name</th>
+                                    <th>Habitability Score</th>
+                                    <th>Distance (ly)</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ranking-tbody">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo">🪐</span>
+                    <span class="brand-text">ExoExplore</span>
+                </div>
+                <p class="footer-desc">Exploring the cosmos, one exoplanet at a time.</p>
+                <div class="footer-links">
+                    <a href="#hero">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#famous">Famous Planets</a>
+                    <a href="#prediction">Predict</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ExoExplore. Built with ❤️ for space enthusiasts.</p>
+                <p class="api-status">API Status: <span id="api-status">Checking...</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
