@@ -18,8 +18,10 @@ STATIC_DIR = os.path.join(BASE_DIR, 'frontend', 'static')
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 CORS(app)
 
-MODEL_PATH = "Random_Forest_model.joblib"
-SCALER_PATH = "scaler.joblib"
+# Get the directory where this script is located
+BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BACKEND_DIR, "Random_Forest_model.joblib")
+SCALER_PATH = os.path.join(BACKEND_DIR, "scaler.joblib")
 
 REQUIRED_FEATURES = [
     'pl_orbper',    # Orbital period (days)
