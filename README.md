@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🪐 ExoHabit AI
+# 🪐 ExoHabit AI (https://exohabit-ai-3ni1.onrender.com)
 
 ### *Exploring the Cosmos, One Exoplanet at a Time*
 
