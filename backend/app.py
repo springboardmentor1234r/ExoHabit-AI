@@ -393,7 +393,10 @@ if __name__ == '__main__':
         print("  POST /predict   - Single prediction")
         print("  POST /batch-predict - Batch predictions")
         print("\n" + "=" * 60)
-        app.run(host='0.0.0.0', port=5000, debug=True)
+        # Use environment variable PORT for deployment platforms
+        port = int(os.environ.get('PORT', 5000))
+        debug_mode = os.environ.get('FLASK_ENV') != 'production'
+        app.run(host='0.0.0.0', port=port, debug=debug_mode)
     else:
         print("\n✗ Failed to load model. Please ensure model files exist.")
         print("\nExpected files:")
