@@ -72,7 +72,7 @@
 
 <div align="center">
 
-### **[✨ Try ExoHabit AI Now ✨](https://exohabit-ai.onrender.com)**
+### **[✨ Try ExoHabit AI Now ✨](https://exohabit-ai-3ni1.onrender.com)**
 
 <img src="https://img.shields.io/badge/Status-Online-success?style=for-the-badge&logo=render&logoColor=white" alt="Status">
 
