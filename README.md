@@ -110,44 +110,6 @@
 
 ---
 
-## ⚡ Quick Start
-
-### Prerequisites
-- Python 3.8+
-- Git
-
-### Installation
-
-```bash
-# 1️⃣ Clone the repository
-git clone https://github.com/springboardmentor1234r/ExoHabit-AI.git
-cd ExoHabit-AI
-
-# 2️⃣ Create virtual environment
-python -m venv venv
-
-# 3️⃣ Activate it
-# Windows:
-venv\Scripts\activate
-# macOS/Linux:
-source venv/bin/activate
-
-# 4️⃣ Install dependencies
-pip install -r requirements.txt
-
-# 5️⃣ Run the app
-cd backend
-python app.py
-
-# 6️⃣ Open browser
-echo "Visit: http://localhost:5000"
-```
-
-<div align="center">
-
-[![Open in Browser](https://img.shields.io/badge/🌐-http://localhost:5000-blue?style=for-the-badge)](http://localhost:5000)
-
-</div>
 
 ---
 
