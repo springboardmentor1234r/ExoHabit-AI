@@ -4,7 +4,7 @@
 
 ### *Exploring the Cosmos, One Exoplanet at a Time*
 
-[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-Click%20Here-00d4ff?style=for-the-badge)](https://exohabit-ai.onrender.com)
+[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-Click%20Here-00d4ff?style=for-the-badge)](https://exohabit-ai-3ni1.onrender.com)
 [![License](https://img.shields.io/badge/📜%20License-MIT-yellow?style=for-the-badge)](LICENSE)
 [![Python](https://img.shields.io/badge/🐍%20Python-3.8+-green?style=for-the-badge)](https://python.org)
 [![Flask](https://img.shields.io/badge/⚡%20Flask-2.0+-orange?style=for-the-badge)](https://flask.palletsprojects.com)
