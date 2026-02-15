@@ -1,18 +1,131 @@
 # ExoHabit-AI 🌌
 
-## 🚀 Project Description
-**ExoHabit-AI** is an intelligent system designed to predict the habitability potential of exoplanets. By analyzing complex planetary and stellar parameters (such as mass, radius, and distance from the host star), the system determines which distant worlds might support life.
+## 🚀 Project Overview
+**ExoHabit-AI** is a Machine Learning web application that predicts the habitability score of exoplanets, ranks them, and provides analytical insights through interactive dashboards and downloadable reports.
+The system:
 
-## 🛠️ Tech Stack
-* **Language:** Python 
-* **Machine Learning:** Scikit-learn / Pandas / NumPy
-* **Web Framework:** Flask
-* **Frontend:** HTML5, CSS3, JavaScript
-* **Visualization:** Matplotlib / Seaborn
+-Predicts habitability score using trained ML model
+
+-Classifies planets as Highly Habitable / Potentially Habitable /Non-Habitable
+
+-Generates ranking among planets
+
+-Displays feature importance
+
+-Exports PDF reports
 
 ---
 
+## 🛠️ Tech Stack
+* **Language:** Python 
+* **Machine Learning:** Scikit-learn / Pandas / NumPy / Xgboost / Joblib
+* **Web Framework:** Flask
+* **Frontend:** HTML / CSS 
+* **Visualization:** Matplotlib / Seaborn
+* **Backend:** Flask / Gunicorn(Production Server)
+* **Report Generation:** ReportLab
+* **Deployment:** Render
+---
+
 ## 📈 Project Status
-- [x] **Phase 0:** Project Initialization & Environment Setup
-- [x] **Milestone 1:** Data Exploration & Preliminary Analysis (Completed)
-- [x] **Milestone 2:** Data Preprocessing & Feature Engineering (Completed)
+- [x] **Phase 0:** Project Initialization & Environment Setup (Completed)
+- [x] **Milestone 1:** Data Collection and Management, Data Preprocessing & Feature Engineering  (Completed)
+- [x] **Milestone 2:** ML Dataset Preparation, ML Model Development and Evaluation (Completed)
+- [x] **Milestone 3:** Backend API(Flask Integration), Frontend UI Development (Completed)
+- [x] **Milestone 4:** Visualization & Dashboard, Deployment and Submission (Completed)
+---
+
+## 🌍 Live Demo
+
+🔗 Live Application:
+https://exohabit.onrender.com
+
+---
+
+
+## 📊 Features
+
+✅ 1. Habitability Prediction
+
++Input planetary parameters
+
++Generates:
+
+           -Habitability score
+           
+           -Classification
+           
+           -Rank among planets
+
+✅ 2. Ranking System
+
++Planets are ranked based on predicted habitability score.
+
++Ranking logic:
+
+          Higher score → Higher rank
+
+          Automatically recalculated on each prediction
+
+✅ 3. Dashboard Analytics
+
++Feature Importance Visualization
+
++Habitability Score Distribution Chart
+
+✅ 4. PDF Report Generation
+
++Downloadable prediction report
+
+---
+
+## 📁 Project Structure
+
+    exohabit-ai/
+    │
+    ├── backend
+    |   ├──app.py
+    |   └──static/
+    |      ├──style.css
+    |
+    ├── model/
+    │   ├── feature_order.pkl
+    │   └── xgboost_model.pkl
+    |   └── scaler.pkl
+    │
+    ├── frontend/
+    │   ├── dashboard.html
+    │   └── index.html
+    │
+    ├── requirements.txt
+    ├── Procfile
+    └── README.md
+
+---
+## 🎓 Deployment Guide
+
+Phase: Deploy on Render
+
+1.Create Procfile in project root:
+
+      web: gunicorn backend.app:app
+      
+2.Go to dashboard.render.com
+
+3.Click New + → Web Service
+
+4.Connect your GitHub repository
+
+5.Configure:
+
+    Name: exohabit
+    Runtime: Python 3
+    Build Command: pip install -r backend/requirements.txt
+    Start Command: gunicorn backend.app:app
+
+6.Click Create Web Service
+
+7.Copy the live URL (https://exohabit.onrender.com)
+
+---
+
