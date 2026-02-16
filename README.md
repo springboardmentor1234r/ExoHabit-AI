@@ -9,7 +9,7 @@
 [![Python](https://img.shields.io/badge/🐍%20Python-3.8+-green?style=for-the-badge)](https://python.org)
 [![Flask](https://img.shields.io/badge/⚡%20Flask-2.0+-orange?style=for-the-badge)](https://flask.palletsprojects.com)
 
-<img src="https://media.giphy.com/media/l0HlNQ03J5JxX6lva/giphy.gif" width="600" alt="Space Animation">
+
 
 **🌌 An intelligent system that predicts exoplanet habitability using machine learning**
 
