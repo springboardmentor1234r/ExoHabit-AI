@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExoExplore - Deep Dive into Exoplanets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css?v=2">
+    <style>
+        body {
+            background-color: #0b0e14;
+            color: #ffffff;
+        }
+
+        .info-card {
+            background-color: #151a21;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 4px solid #00d2ff;
+            height: 100%;
+        }
+
+        .info-title {
+            color: #00d2ff;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .planet-icon {
+            font-size: 3rem;
+            color: #3a7bd5;
+            margin-bottom: 15px;
+        }
+
+        .timeline-item {
+            border-left: 2px solid #2c3e50;
+            padding-left: 20px;
+            margin-left: 10px;
+            padding-bottom: 20px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00d2ff;
+        }
+
+        .famous-planet-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-planet"></i> ExoExplore</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/exoplanets">What Are Exoplanets</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="hero-section pt-0 pb-5 text-center">
+            <h1 class="hero-title">Unveiling New Worlds</h1>
+            <p class="hero-subtitle lead text-muted">Exoplanets are planets beyond our solar system. Thousands have been
+                discovered in the past two decades, revolutionizing our understanding of the cosmos.</p>
+        </div>
+
+        <!-- Detection Methods & Goldilocks -->
+        <div class="row mb-5">
+            <div class="col-md-6 mb-4">
+                <div class="info-card">
+                    <i class="fas fa-search planet-icon"></i>
+                    <h3 class="info-title">How Do We Find Them?</h3>
+                    <p>Most exoplanets are found using the <strong>Transit Method</strong>. When a planet passes in
+                        front of its star, it blocks a tiny fraction of the star's light. By measuring this dip in
+                        brightness, astronomers can determine the planet's size and orbit.</p>
+                    <p>Another major method is <strong>Radial Velocity</strong> (Wobble Method), where we detect the
+                        star wobbling due to the gravitational pull of an orbiting planet.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="info-card" style="border-left-color: #ffcc00;">
+                    <i class="fas fa-balance-scale planet-icon" style="color: #ffcc00;"></i>
+                    <h3 class="info-title" style="color: #ffcc00;">The Goldilocks Zone</h3>
+                    <p>The <strong>Habitable Zone</strong> (or Goldilocks Zone) is the range of distances from a star
+                        where liquid water could exist on a planet's surface. If it's too close, water boils away; too
+                        far, and it freezes.</p>
+                    <p>Finding planets in this zone is key to the search for extraterrestrial life, though other factors
+                        like atmosphere and magnetic fields are also crucial.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Types of Planets -->
+        <h2 class="text-center mb-4" style="color: #00ff88;">Types of Exoplanets</h2>
+        <div class="row mb-5">
+            <div class="col-md-3 text-center mb-3">
+                <div class="p-3" style="background: #151a21; border-radius: 10px;">
+                    <i class="fas fa-globe-americas fa-3x mb-3 text-white"></i>
+                    <h5>Terrestrial</h5>
+                    <p class="small text-muted">Earth-sized rocky worlds, potential homes for life.</p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+                <div class="p-3" style="background: #151a21; border-radius: 10px;">
+                    <i class="fas fa-circle fa-3x mb-3 text-danger"></i>
+                    <h5>Super-Earths</h5>
+                    <p class="small text-muted">Larger than Earth, smaller than Neptune. Common in the galaxy.</p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+                <div class="p-3" style="background: #151a21; border-radius: 10px;">
+                    <i class="fas fa-cloud fa-3x mb-3 text-info"></i>
+                    <h5>Neptune-like</h5>
+                    <p class="small text-muted">Gaseous worlds similar to Neptune, often with thick atmospheres.</p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+                <div class="p-3" style="background: #151a21; border-radius: 10px;">
+                    <i class="fas fa-star fa-3x mb-3 text-warning"></i>
+                    <h5>Gas Giants</h5>
+                    <p class="small text-muted">Massive planets like Jupiter, sometimes ("Hot Jupiters") orbiting very
+                        close to their stars.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Famous Exoplanets -->
+        <h2 class="text-center mb-4" style="color: #00d2ff;">Famous Discoveries</h2>
+        <div class="row mb-5">
+            <div class="col-md-4 mb-4">
+                <div class="info-card" style="padding: 20px;">
+                    <h4 class="text-white">Proxima Centauri b</h4>
+                    <p class="small text-muted">Our closest neighbor.</p>
+                    <p>Located just 4.2 light-years away, this Earth-mass planet sits in the habitable zone of the
+                        closest star to our Sun. It is a prime target for future interstellar missions.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="info-card" style="padding: 20px;">
+                    <h4 class="text-white">The TRAPPIST-1 System</h4>
+                    <p class="small text-muted">7 Earth-sized worlds.</p>
+                    <p>A marvel of the cosmos, this system hosts seven Earth-sized planets orbiting a red dwarf star.
+                        Three of these planets are firmly within the habitable zone.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="info-card" style="padding: 20px;">
+                    <h4 class="text-white">Kepler-452b</h4>
+                    <p class="small text-muted">"Earth's Cousin".</p>
+                    <p>The first near-Earth-size planet found in the habitable zone of a star very similar to our Sun.
+                        It offered the first glimpse of a true "Earth 2.0".</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline / History -->
+        <div class="row mb-5">
+            <div class="col-md-8 offset-md-2">
+                <h3 class="mb-4 text-center" style="color: #00d2ff;">A Brief History</h3>
+                <div class="timeline-item">
+                    <h5 class="text-white">1992: First Detection</h5>
+                    <p style="color: #d1d5db;">Aleksander Wolszczan and Dale Frail discover two planets orbiting a
+                        pulsar
+                        (PSR B1257+12), proving planets exist outside our solar system.</p>
+                </div>
+                <div class="timeline-item">
+                    <h5 class="text-white">1995: 51 Pegasi b</h5>
+                    <p style="color: #d1d5db;">Michel Mayor and Didier Queloz discover the first planet orbiting a
+                        Sun-like
+                        star. It was a "Hot Jupiter", shocking astronomers.</p>
+                </div>
+                <div class="timeline-item">
+                    <h5 class="text-white">2009: Kepler Mission Launch</h5>
+                    <p style="color: #d1d5db;">NASA launches the Kepler Space Telescope, which would go on to discover
+                        thousands of exoplanets.</p>
+                </div>
+                <div class="timeline-item" style="border-left: 0;">
+                    <h5 class="text-white">Today & Future</h5>
+                    <p style="color: #d1d5db;">With James Webb Space Telescope (JWST), we are now analyzing exoplanet
+                        atmospheres for signs of water, methane, and potential biosignatures.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fun Facts / Weird Worlds -->
+        <h2 class="text-center mb-4" style="color: #ff0055;">The Weird & Wonderful</h2>
+        <div class="row mb-5">
+            <div class="col-md-4 mb-4">
+                <div class="info-card" style="border-left-color: #ff0055;">
+                    <i class="fas fa-gem fa-2x mb-3" style="color: #ff0055;"></i>
+                    <h4 class="text-white">55 Cancri e</h4>
+                    <p class="small text-white-50">The Diamond Planet</p>
+                    <p style="color: #d1d5db;">This super-Earth is likely covered in graphite and diamond. It's twice as
+                        wide as Earth but eight times more massive!</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="info-card" style="border-left-color: #00d2ff;">
+                    <i class="fas fa-umbrella fa-2x mb-3" style="color: #00d2ff;"></i>
+                    <h4 class="text-white">HD 189733 b</h4>
+                    <p class="small text-white-50">Raining Glass</p>
+                    <p style="color: #d1d5db;">The weather here is deadly. It rains molten glass sideways due to 5,400
+                        mph winds!</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="info-card" style="border-left-color: #ffcc00;">
+                    <i class="fas fa-sun fa-2x mb-3" style="color: #ffcc00;"></i>
+                    <h4 class="text-white">Kepler-16b</h4>
+                    <p class="small text-white-50">Tatooine</p>
+                    <p style="color: #d1d5db;">A real-life Tatooine! This planet orbits two stars, meaning it has two
+                        sunsets every day.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5 mb-5">
+            <a href="/" class="btn btn-predict-action rounded-pill px-5">Explore the Data</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

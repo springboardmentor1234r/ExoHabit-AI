@@ -1,57 +1,199 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>ExoHabit-AI</title>
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExoExplore - Habitability Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css?v=2">
+    <!-- Chart.js for Gauge -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Fallback dark theme in case CSS fails to load */
+        body {
+            background-color: #0b0e14;
+            color: #ffffff;
+        }
+
+        .form-container {
+            background-color: #151a21;
+            color: white;
+        }
+
+        .result-container {
+            background-color: #151a21;
+            color: white;
+        }
+    </style>
 </head>
-<body class="bg-light">
 
-<div class="container mt-5">
-    <h2 class="text-center">Exoplanet Habitability Predictor</h2>
+<body>
 
-    <form>
-        <input class="form-control mb-2" id="pl_rade" placeholder="Planet Radius">
-        <input class="form-control mb-2" id="pl_bmasse" placeholder="Planet Mass">
-        <input class="form-control mb-2" id="pl_dens" placeholder="Planet Density">
-        <input class="form-control mb-2" id="pl_eqt" placeholder="Equilibrium Temperature">
-        <input class="form-control mb-2" id="pl_orbper" placeholder="Orbital Period">
-        <input class="form-control mb-2" id="st_teff" placeholder="Star Temperature">
-        <input class="form-control mb-2" id="st_lum" placeholder="Star Luminosity">
-        <input class="form-control mb-2" id="st_met" placeholder="Star Metallicity">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-planet"></i> ExoExplore</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/exoplanets">What Are Exoplanets</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                    <li class="nav-item"><a class="btn btn-predict-nav ms-3" href="#prediction-section">Predict
+                            Habitability</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <button type="button" class="btn btn-primary w-100" onclick="predict()">Predict</button>
-    </form>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Beyond Our Solar System</h1>
+            <p class="hero-subtitle">Discover thousands of worlds orbiting distant stars. Explore the possibility of
+                life beyond Earth.</p>
 
-    <div class="mt-4 text-center">
-        <h4 id="result"></h4>
-    </div>
-</div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>5,600</h3>
+                    <p>Confirmed Exoplanets</p>
+                </div>
+                <div class="stat-item">
+                    <h3>205</h3>
+                    <p>Potentially Habitable</p>
+                </div>
+                <div class="stat-item">
+                    <h3>4.3</h3>
+                    <p>Light Years to Proxima B</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script>
-function predict() {
-    fetch("/predict", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            pl_rade: parseFloat(pl_rade.value),
-            pl_bmasse: parseFloat(pl_bmasse.value),
-            pl_dens: parseFloat(pl_dens.value),
-            pl_eqt: parseFloat(pl_eqt.value),
-            pl_orbper: parseFloat(pl_orbper.value),
-            st_teff: parseFloat(st_teff.value),
-            st_lum: parseFloat(st_lum.value),
-            st_met: parseFloat(st_met.value)
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        result.innerHTML =
-          `Habitability Score: ${data.habitability_probability}<br>
-           Prediction: ${data.prediction}`;
-    });
-}
-</script>
+    <!-- Prediction Section -->
+    <section id="prediction-section" class="container py-5">
+        <div class="row">
+            <!-- Form Column -->
+            <div class="col-lg-6 mb-4">
+                <div class="form-container">
+                    <form id="predictionForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Orbital Period (days)</label>
+                                <input type="number" step="0.1" class="form-control" name="pl_orbper"
+                                    placeholder="e.g. 365.25" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Planet Radius (Earth radii)</label>
+                                <input type="number" step="0.01" class="form-control" name="pl_rade"
+                                    placeholder="e.g. 1.0" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Planet Mass (Earth masses)</label>
+                                <input type="number" step="0.01" class="form-control" name="pl_masse"
+                                    placeholder="e.g. 1.0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Equilibrium Temp (K)</label>
+                                <input type="number" step="1" class="form-control" name="pl_eqt" placeholder="e.g. 288"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Stellar Temperature (K)</label>
+                                <input type="number" step="1" class="form-control" name="st_teff"
+                                    placeholder="e.g. 5778" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Stellar Radius (Solar radii)</label>
+                                <input type="number" step="0.01" class="form-control" name="st_rad"
+                                    placeholder="e.g. 1.0" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Stellar Mass (Solar masses)</label>
+                                <input type="number" step="0.01" class="form-control" name="st_mass"
+                                    placeholder="e.g. 1.0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">System Distance (parsec)</label>
+                                <input type="number" step="0.1" class="form-control" name="sy_dist"
+                                    placeholder="e.g. 10" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Planet Density (g/cm³)</label>
+                                <input type="number" step="0.01" class="form-control" name="pl_dens"
+                                    placeholder="e.g. 5.5">
+                            </div>
+                        </div>
 
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-predict-action rounded-pill">Predict
+                                Habitability</button>
+                            <div class="d-flex justify-content-between">
+                                <button type="reset"
+                                    class="btn btn-outline-secondary btn-sm rounded-pill px-4">Reset</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-4"
+                                    onclick="loadSample()">Load Sample</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Result Column -->
+            <div class="col-lg-6">
+                <!-- Wrapper to toggle visibility -->
+                <div id="resultWrapper" style="display: none; height: 100%;">
+                    <div class="result-container p-4 text-center">
+                        <div style="position: relative; width: 250px; height: 160px; margin: 0 auto;">
+                            <canvas id="gaugeChart"></canvas>
+                            <div style="position: absolute; bottom: 0; left: 0; right: 0; text-align: center;">
+                                <h1 id="gaugeValue" style="margin: 0; font-size: 3rem; font-weight: bold;">0%</h1>
+                            </div>
+                        </div>
+
+                        <h4 class="habitability-score mt-3">Habitability Score</h4>
+                        <div id="statusBadge" class="status-badge d-inline-block mb-4">UNKNOWN</div>
+
+                        <div class="details-table text-start" id="predictionDetails">
+                            <div class="details-row">
+                                <span class="details-label">Classification</span>
+                                <span class="details-value" id="predClass">--</span>
+                            </div>
+                            <div class="details-row">
+                                <span class="details-label">Confidence</span>
+                                <span class="details-value" id="predConf">--</span>
+                            </div>
+                            <div class="details-row">
+                                <span class="details-label">Habitable</span>
+                                <span class="details-value" id="predHabitable">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Placeholder when no result -->
+                <div id="placeholderWrapper" class="result-container p-4">
+                    <i class="fas fa-rocket fa-3x mb-3 text-secondary"></i>
+                    <h5 class="text-secondary">Ready to Explore</h5>
+                    <p class="text-muted">Enter parameters to analyze habitability</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/app.js"></script>
 </body>
+
 </html>
