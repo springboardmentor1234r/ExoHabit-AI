@@ -79,7 +79,7 @@ https://exohabit.onrender.com
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Structure(to run application)
 
     exohabit-ai/
     │
@@ -129,3 +129,16 @@ Phase: Deploy on Render
 
 ---
 
+## 🚀 Quick Start
+
+Local Development
+
+1.Install required dependencies/libraries (in terminal run below command)
+
+    pip install -r requirements.txt
+
+2.To run the application(in terminal run below command)
+
+     python backend/app.py
+
+Visit  http://127.0.0.1:5000  in your browser.
