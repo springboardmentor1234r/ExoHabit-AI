@@ -116,37 +116,7 @@ Results and plots are written to:
 - `models/plots/` – ROC curve, habitability distribution, star–planet scatter  
 - `models/top_habitable_planets.json` – top‑K ranked planets + scores
 
----
-
-## 🧱 Project Structure
-
-```text
-ExoHabitAI/
-├─ api.py                 # Flask app + routes + dashboard APIs
-├─ templates/             # Multi‑page HTML frontend
-│  ├─ home.html           # Landing page
-│  ├─ predict.html        # Prediction form + result view
-│  ├─ dashboard.html      # Habitability Intelligence Dashboard
-│  └─ about.html          # About page + exoplanet facts carousel
-├─ models/
-│  ├─ preprocessing.py    # Data loading, cleaning, feature engineering, preprocessing
-│  ├─ train_model.py      # Model training, selection, top‑planets export
-│  ├─ evaluate.py         # Metrics + plots
-│  ├─ __init__.py
-│  ├─ best_model.pkl      # Saved best model (generated)
-│  ├─ model_metrics.json  # Evaluation metrics (generated)
-│  ├─ top_habitable_planets.json
-│  └─ plots/              # PNG plots (generated)
-├─ requirements.txt
-└─ README.md
-```
-
-If you adopt a `backend/` + `frontend/` split, move `api.py` and `templates/` under `backend/` and update the
-`Flask(..., template_folder=...)` configuration accordingly.
-
----
-
-## ⚙️ Tech Stack
+-## ⚙️ Tech Stack
 
 | Layer           | Technology                        |
 |----------------|-----------------------------------|
