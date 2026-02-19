@@ -1,0 +1,178 @@
+HTML_TEMPLATE = '''
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ExoHabit-AI Ultimate</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* 🌌 STAR TREK / DEEP SPACE THEME */
+        :root {
+            --space-black: #05070d;
+            --nebula-blue: #1f3c88;
+            --federation-cyan: #4fd1c5;
+            --solar-gold: #f6c177;
+            --space-white: #e5e7eb;
+            --panel-glass: rgba(20, 30, 60, 0.65);
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top, #0b1c3d 0%, #05070d 60%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: var(--space-white);
+        }
+
+        h1, h2, h3, h4, h5 {
+            letter-spacing: 0.8px;
+        }
+
+        /* 🪐 Glass Panels */
+        .glass {
+            background: var(--panel-glass);
+            backdrop-filter: blur(18px);
+            border-radius: 22px;
+            border: 1px solid rgba(79, 209, 197, 0.25);
+            padding: 26px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+        }
+
+        /* 🧭 Tabs */
+        .nav-tabs {
+            border-bottom: none;
+        }
+
+        .nav-tabs .nav-link {
+            color: var(--space-white);
+            background: rgba(31, 60, 136, 0.35);
+            margin: 0 6px;
+            border-radius: 18px 18px 0 0;
+            padding: 12px 26px;
+            border: none;
+        }
+
+        .nav-tabs .nav-link.active {
+            background: var(--space-white);
+            color: #05070d;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.4);
+        }
+
+        /* 🚀 Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--nebula-blue), var(--federation-cyan));
+            border: none;
+            padding: 14px 30px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(79, 209, 197, 0.6);
+        }
+
+        /* 📊 Charts */
+        .chart-container {
+            height: 350px;
+        }
+
+        /* 🧠 Scores */
+        .score-big {
+            font-size: 3.8rem;
+            font-weight: 800;
+            color: var(--federation-cyan);
+            text-shadow: 0 0 25px rgba(79, 209, 197, 0.5);
+        }
+
+        /* 📡 Dataset Info */
+        .dataset-info {
+            background: rgba(31, 60, 136, 0.35);
+            border: 1px solid rgba(79, 209, 197, 0.4);
+            border-radius: 18px;
+            padding: 22px;
+        }
+
+        /* 🧾 Tables */
+        .table-dark {
+            --bs-table-bg: rgba(5, 7, 13, 0.85);
+            --bs-table-border-color: rgba(79, 209, 197, 0.25);
+        }
+
+        .badge {
+            letter-spacing: 0.4px;
+        }
+
+        .earth-table {
+            font-size: 0.92rem;
+        }
+
+        /* 🌠 Icons */
+        i {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body class="py-5">
+<div class="container">
+
+    <!-- 🛰️ HEADER -->
+    <div class="text-center mb-5">
+        <h1 class="display-3 fw-bold mb-3">
+            <i class="fas fa-star me-3"></i>ExoHabit-AI Ultimate
+        </h1>
+        <p class="lead fs-3 mb-4">
+            Advanced Exoplanet Habitability Intelligence
+        </p>
+
+        <div class="dataset-info">
+            <div class="row text-center">
+                <div class="col">
+                    <i class="fas fa-database me-2"></i>
+                    <strong>{{dataset_count}} Planets</strong><br>
+                    <small>from processed_exoplanets.csv</small>
+                </div>
+                <div class="col">
+                    <i class="fas fa-list me-2"></i>
+                    <strong>{{feature_count}} Features</strong><br>
+                    <small>from feature_order.pkl</small>
+                </div>
+                <div class="col">
+                    <i class="fas fa-trophy me-2"></i>
+                    <strong>Top 20 Original</strong><br>
+                    <small>YOUR project rankings</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🧭 NAVIGATION -->
+    <ul class="nav nav-tabs justify-content-center mb-5" id="dashboardTabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="#predict" data-bs-toggle="tab">
+                <i class="fas fa-brain me-2"></i>Predict
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#analytics" data-bs-toggle="tab">
+                <i class="fas fa-chart-bar me-2"></i>Analytics
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#top-planets" data-bs-toggle="tab">
+                <i class="fas fa-trophy me-2"></i>Top 20
+            </a>
+        </li>
+    </ul>
+
+    {{ super() }}
+</div>
+</body>
+</html>
+'''

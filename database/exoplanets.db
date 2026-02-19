@@ -1,0 +1,10 @@
+import sqlite3
+import pandas as pd
+
+df = pd.read_csv(r"D:\Exo_Habit-AI\data\processed_exoplanets.csv")
+
+conn = sqlite3.connect(r"D:\Exo_Habit-AI\database\exoplanets.db")
+df.to_sql("exoplanets", conn, if_exists="replace", index=False)
+conn.close()
+
+print("✅ Database created successfully")

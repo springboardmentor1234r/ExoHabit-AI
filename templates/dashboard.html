@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ExoHabitAI Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <h1>ExoHabitAI Dashboard</h1>
+
+  <div id="loading" style="display:none">Loading prediction…</div>
+
+  <h3 id="result"></h3>
+
+  <canvas id="probChart" width="400" height="200"></canvas>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
