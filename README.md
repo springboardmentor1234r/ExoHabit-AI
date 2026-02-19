@@ -6,7 +6,7 @@
 
 **Discover New Worlds. Predict Life.**
 
-[![Madhan](https://img.shields.io/badge/Architect-Madhan-00d4ff?style=flat-square)](https://github.com/springboardmentor1234r)
+[![Architect](https://img.shields.io/badge/Architect-Madhan-00d4ff?style=flat-square)](https://github.com/Madhan-mohan14)
 [![Status](https://img.shields.io/badge/System-Operational-success?style=flat-square)]()
 [![Python](https://img.shields.io/badge/Python-3.8+-yellow?style=flat-square)]()
 [![License](https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square)]()
@@ -17,7 +17,7 @@
 
 ## 🚀 Validating the Cosmos
 
-**ExoHabit AI** is a next-generation predictive system designed to analyze exoplanetary data and determine the likelihood of habitability. Built with advanced machine learning ensembles and wrapped in a stunning 3D interactive interface, it bridges the gap between complex astrophysical data and human understanding.
+**ExoHabit AI** is a cutting-edge predictive system designed to analyze exoplanetary data and determine the likelihood of habitability. Built with advanced machine learning ensembles and wrapped in a stunning 3D interactive interface, it bridges the gap between complex astrophysical data and human understanding.
 
 > *"We are made of starstuff."* — Carl Sagan
 
@@ -25,26 +25,35 @@
 
 ## 💎 Core Capabilities
 
-### � **Advanced ML prediction Engine**
-Utilizes a voting ensemble of three powerful algorithms to ensure maximum accuracy:
--   **Random Forest Classifier** (Primary)
--   **XGBoost Gradient Boosting** (High Precision)
--   **Logistic Regression** (Baseline)
+### 🧠 **Multi-Model Intelligence**
+The system uses a sophisticated voting ensemble of three powerful algorithms to ensure maximum accuracy:
+1.  **Random Forest Classifier** (Primary): Robust decision trees that handle non-linear data effectively.
+2.  **XGBoost Gradient Boosting** (High Precision): Analyzing complex feature interactions for superior predictive power.
+3.  **Logistic Regression** (Baseline): Providing a reliable statistical baseline for comparison.
 
-### ⚡ **Quick-Load Presets** (New!)
+**Select Your Model:** The dashboard allows users to switch between these models in real-time to compare predictions and confidence levels.
+
+### 🌐 **Immersive 3D Experience**
+Step into the cosmos with a fully interactive frontend:
+-   **Three.js Particle System:** A living, breathing starfield background that responds to mouse movement.
+-   **WebGL Hero Planet:** A 3D rendered planet with atmospheric glow and rotation.
+-   **GSAP Animations:** Smooth, cinematic transitions that guide the user through the journey of discovery.
+
+### 📊 **Scientific Dashboard**
+-   **Real-time Analysis:** Instant feedback on habitability probability.
+-   **Feature Importance:** Visualizing which factors (e.g., Planet Radius, Equilibrium Temp) drove the AI's decision.
+-   **Habitability Distribution:** Donut charts showing the global distribution of habitable vs. non-habitable candidates.
+
+### ⚡ **Quick-Load Presets**
 Instantly simulate known celestial bodies to test the model's calibration:
 -   🌍 **Earth**: The baseline for life (Returns ~99% Habitable)
--   � **Mars**: The cold desert neighbor
--   ⚡ **Jupiter**: The gas giant constraint
+-   🔴 **Mars**: The cold desert neighbor
+-   🪐 **Jupiter**: The gas giant constraint
 -   ⭐ **Proxima b**: The closest candidate (Verified Habitable)
-
-### � **Immersive Visualization**
--   **Interactive Hero Canvas**: A living 3D particle system built with Three.js.
--   **Dynamic Data Charts**: Real-time analysis of feature importance and probability distributions using Chart.js.
 
 ---
 
-## �️ The Architecture
+## 🛠️ The Architecture
 
 <div align="center">
   
@@ -64,7 +73,7 @@ Instantly simulate known celestial bodies to test the model's calibration:
 
 ### 1. Clone the Intelligence System
 ```bash
-git clone https://github.com/springboardmentor1234r/ExoHabit-AI.git
+git clone https://github.com/Madhan-mohan14/ExoHabit-AI.git
 cd ExoHabit-AI
 ```
 
@@ -90,7 +99,7 @@ python backend/app.py
 
 ---
 
-## � System Previews
+## 📷 System Previews
 
 | **Hero Interface** | **Prediction Dashboard** |
 |:---:|:---:|
@@ -98,13 +107,13 @@ python backend/app.py
 
 ---
 
-## 👨‍� Creator
+## 👨‍💻 Creator
 
 <div align="center">
 
 **Architected by Madhan**
 
-[![GitHub](https://img.shields.io/badge/GitHub-Profile-black?style=for-the-badge&logo=github)](https://github.com/springboardmentor1234r)
+[![GitHub](https://img.shields.io/badge/GitHub-Profile-black?style=for-the-badge&logo=github)](https://github.com/Madhan-mohan14)
 
 *Looking at the stars, and dreaming of what's next.*
 
