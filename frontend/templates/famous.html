@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famous Exoplanets - PlanetAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.5rem;">
+                <span class="logo-icon">🪐</span> PlanetAI
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="/#home" class="nav-link">Home</a>
+            <a href="/#learn" class="nav-link">Learn</a>
+            <a href="#" class="nav-link active">Famous Planets</a>
+            <a href="/#analyze" class="nav-link highlight">AI Tools</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="content-section" style="padding-bottom: 2rem;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Famous Exoplanets</h2>
+                <p>The most promising worlds discovered beyond our solar system.</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Planets Grid -->
+    <section class="content-section" style="padding-top: 0;">
+        <div class="container">
+            <div class="planets-showcase">
+                <!-- Planet Card 1 -->
+                <div class="planet-card">
+                    <div class="planet-viz kepler-442b"></div>
+                    <div class="planet-info">
+                        <h3>Kepler-442b</h3>
+                        <div class="planet-meta">
+                            <span>1,206 LY Away</span>
+                            <span>Habitable Candidate</span>
+                        </div>
+                        <p>A super-Earth exoplanet orbiting within the habitable zone of a K-type main-sequence star. It is one of the most promising candidates for potential habitability.</p>
+                    </div>
+                </div>
+                
+                <!-- Planet Card 2 -->
+                <div class="planet-card">
+                    <div class="planet-viz proxima-b"></div>
+                    <div class="planet-info">
+                        <h3>Proxima Centauri b</h3>
+                        <div class="planet-meta">
+                            <span>4.2 LY Away</span>
+                            <span>Closest Exoplanet</span>
+                        </div>
+                        <p>The closest known exoplanet to the Solar System. It orbits in the habitable zone of the red dwarf star Proxima Centauri.</p>
+                    </div>
+                </div>
+
+                <!-- Planet Card 3 -->
+                <div class="planet-card">
+                    <div class="planet-viz trappist-1e"></div>
+                    <div class="planet-info">
+                        <h3>TRAPPIST-1e</h3>
+                        <div class="planet-meta">
+                            <span>40 LY Away</span>
+                            <span>Earth-Sized</span>
+                        </div>
+                        <p>One of seven Earth-sized planets in the TRAPPIST-1 system. It is considered one of the most potentially habitable exoplanets found so far.</p>
+                    </div>
+                </div>
+
+                 <!-- Planet Card 4 -->
+                 <div class="planet-card">
+                    <div class="planet-viz" style="background: radial-gradient(circle at 30% 30%, #eab308, #a16207);"></div>
+                    <div class="planet-info">
+                        <h3>Kepler-186f</h3>
+                        <div class="planet-meta">
+                            <span>580 LY Away</span>
+                            <span>Earth Cousin</span>
+                        </div>
+                        <p>The first Earth-size planet discovered in the potentially habitable zone. It orbits a red dwarf star.</p>
+                    </div>
+                </div>
+
+                 <!-- Planet Card 5 -->
+                 <div class="planet-card">
+                    <div class="planet-viz" style="background: radial-gradient(circle at 30% 30%, #3b82f6, #1d4ed8);"></div>
+                    <div class="planet-info">
+                        <h3>Kepler-22b</h3>
+                        <div class="planet-meta">
+                            <span>600 LY Away</span>
+                            <span>Water World?</span>
+                        </div>
+                        <p>A planet in the habitable zone of a Sun-like star. It might be covered in a super-ocean.</p>
+                    </div>
+                </div>
+
+                 <!-- Planet Card 6 -->
+                 <div class="planet-card">
+                    <div class="planet-viz" style="background: radial-gradient(circle at 30% 30%, #f97316, #c2410c);"></div>
+                    <div class="planet-info">
+                        <h3>LHS 1140 b</h3>
+                        <div class="planet-meta">
+                            <span>40 LY Away</span>
+                            <span>Super-Earth</span>
+                        </div>
+                        <p>A dense rocky planet in the habitable zone of a red dwarf, offering excellent conditions for atmospheric study.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 4rem;">
+                <a href="/#analyze" class="btn btn-primary">Analyze a Planet Yourself</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">🪐</span> PlanetAI
+                </div>
+                <p class="copyright">&copy; 2026 PlanetAI Research.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

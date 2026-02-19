@@ -9,6 +9,7 @@ from flask_cors import CORS
 import joblib
 import numpy as np
 import os
+import random # Added for Random Sample feature
 
 # Get the project root directory (parent of backend)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,8 +21,14 @@ CORS(app)
 
 # Get the directory where this script is located
 BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BACKEND_DIR, "Random_Forest_model.joblib")
 SCALER_PATH = os.path.join(BACKEND_DIR, "scaler.joblib")
+
+# Model Paths
+MODEL_PATHS = {
+    'rf': os.path.join(BACKEND_DIR, "Random_Forest_model.joblib"),
+    'xgb': os.path.join(BACKEND_DIR, "XGBoost_model.joblib"),
+    'lr': os.path.join(BACKEND_DIR, "Logistic_Regression_model.joblib")
+}
 
 REQUIRED_FEATURES = [
     'pl_orbper',    # Orbital period (days)
@@ -36,32 +43,41 @@ REQUIRED_FEATURES = [
     'sy_pnum'       # Number of planets in system
 ]
 
-model = None
+# Global variables to store loaded models
+loaded_models = {}
 scaler = None
 
 
 def load_model():
-    """Load the trained model and scaler."""
-    global model, scaler
-    try:
-        if os.path.exists(MODEL_PATH):
-            model = joblib.load(MODEL_PATH)
-            print(f"✓ Model loaded from {MODEL_PATH}")
-        else:
-            print(f"✗ Model file not found: {MODEL_PATH}")
-            return False
-        
-        if os.path.exists(SCALER_PATH):
+    """Load the trained models and scaler."""
+    global loaded_models, scaler
+    
+    # Load Scaler
+    if os.path.exists(SCALER_PATH):
+        try:
             scaler = joblib.load(SCALER_PATH)
             print(f"✓ Scaler loaded from {SCALER_PATH}")
-        else:
-            print(f"✗ Scaler file not found: {SCALER_PATH}")
+        except Exception as e:
+            print(f"✗ Error loading scaler: {e}")
             return False
-        
-        return True
-    except Exception as e:
-        print(f"✗ Error loading model: {str(e)}")
+    else:
+        print(f"✗ Scaler file not found: {SCALER_PATH}")
         return False
+
+    # Load Models
+    success_count = 0
+    for key, path in MODEL_PATHS.items():
+        if os.path.exists(path):
+            try:
+                loaded_models[key] = joblib.load(path)
+                print(f"✓ Model '{key}' loaded from {path}")
+                success_count += 1
+            except Exception as e:
+                print(f"✗ Error loading model '{key}': {e}")
+        else:
+            print(f"⚠ Model file not found for '{key}': {path}")
+
+    return success_count > 0
 
 
 def validate_input(data):
@@ -85,12 +101,14 @@ def validate_input(data):
     
     for feature in REQUIRED_FEATURES:
         value = data[feature]
-        if not isinstance(value, (int, float)):
-            invalid_features.append(f"{feature} (must be numeric)")
-        elif np.isnan(value) or np.isinf(value):
-            invalid_features.append(f"{feature} (invalid value)")
-        else:
-            validated_data[feature] = float(value)
+        # Allow string numbers convertible to float
+        try:
+            float_val = float(value)
+            validated_data[feature] = float_val
+            if np.isnan(float_val) or np.isinf(float_val):
+                invalid_features.append(f"{feature} (invalid value)")
+        except (ValueError, TypeError):
+             invalid_features.append(f"{feature} (must be numeric)")
     
     if invalid_features:
         return False, f"Invalid values for: {', '.join(invalid_features)}", None
@@ -98,33 +116,76 @@ def validate_input(data):
     return True, None, validated_data
 
 
-def make_prediction(data):
+def get_feature_importance(model, model_type):
+    """Extract feature importance from model."""
+    try:
+        if model_type == 'rf' or model_type == 'xgb':
+            if hasattr(model, 'feature_importances_'):
+                raw_importance = model.feature_importances_
+            else:
+                return {}
+        elif model_type == 'lr':
+            if hasattr(model, 'coef_'):
+                # Use absolute value of coefficients
+                raw_importance = np.abs(model.coef_[0])
+            else:
+                return {}
+        else:
+            return {}
+
+        # Normalize
+        total = np.sum(raw_importance)
+        if total > 0:
+            normalized = raw_importance / total
+            return {feat: float(score) for feat, score in zip(REQUIRED_FEATURES, normalized)}
+    except:
+        pass
+    return {}
+
+
+def make_prediction(data, model_type='rf'):
     """
     Make habitability prediction using the loaded model.
     Returns prediction result dictionary.
     """
     try:
+        model = loaded_models.get(model_type)
+        if not model:
+            return {"success": False, "error": f"Model '{model_type}' not available"}
+
         feature_values = [data[feature] for feature in REQUIRED_FEATURES]
         features_array = np.array(feature_values).reshape(1, -1)
         
         features_scaled = scaler.transform(features_array)
         
         prediction = model.predict(features_scaled)[0]
-        probability = model.predict_proba(features_scaled)[0]
-        
-        habitability_probability = float(probability[1])
+        # Check if model supports predict_proba
+        try:
+            if hasattr(model, 'predict_proba'):
+                probability = model.predict_proba(features_scaled)[0][1]
+            else:
+                probability = float(prediction)
+            
+            habitability_probability = float(probability)
+        except:
+             habitability_probability = float(prediction)
+
         is_habitable = int(prediction)
         
         confidence = "High" if habitability_probability > 0.8 or habitability_probability < 0.2 else "Medium"
         
+        feature_contributions = get_feature_importance(model, model_type)
+
         return {
             "success": True,
             "prediction": {
                 "is_habitable": is_habitable,
                 "habitability_probability": round(habitability_probability, 4),
                 "confidence": confidence,
+                "model_used": model_type.upper(),
                 "classification": "Habitable" if is_habitable == 1 else "Not Habitable"
             },
+            "feature_importance": feature_contributions,
             "input_data": data
         }
     
@@ -150,28 +211,22 @@ def index_website():
         }), 500
 
 
-@app.route('/test', methods=['GET'])
-def test_page():
-    """Test route to verify server is working."""
-    return """
-    <!DOCTYPE html>
-    <html>
-    <head><title>Test</title></head>
-    <body style="background: #0a0a0a; color: white; font-family: Arial; padding: 50px;">
-        <h1>✓ Flask Server is Running!</h1>
-        <p>Now try accessing <a href="/" style="color: #00d4ff;">the main website</a></p>
-        <p>Template folder: {}</p>
-        <p>Static folder: {}</p>
-        <p><a href="/test-sections" style="color: #00d4ff;">View Section Test Page</a></p>
-    </body>
-    </html>
-    """.format(app.template_folder, app.static_folder)
+@app.route('/famous', methods=['GET'])
+def famous_planets():
+    """Serve the famous planets page."""
+    return render_template('famous.html')
 
+@app.route('/learn', methods=['GET'])
+def learn_page():
+    return render_template('learn.html')
 
-@app.route('/test-sections', methods=['GET'])
-def test_sections():
-    """Test page showing all sections."""
-    return render_template('test_sections.html')
+@app.route('/candidates', methods=['GET'])
+def candidates_page():
+    return render_template('candidates.html')
+
+@app.route('/visualize', methods=['GET'])
+def visualize_page():
+    return render_template('visualize.html')
 
 
 @app.route('/static/<path:filename>')
@@ -183,17 +238,18 @@ def serve_static(filename):
 # ===== API ROUTES =====
 
 @app.route('/api', methods=['GET'])
-def index():
+def index_api():
     """Root endpoint with API information."""
     return jsonify({
         "message": "Exoplanet Habitability Prediction API",
-        "version": "1.0.0",
+        "version": "2.0.0",
+        "models_available": list(loaded_models.keys()),
         "endpoints": {
             "health": "/health",
             "predict": "/predict (POST)",
-            "features": "/features"
+            "random_planet": "/random-planet"
         },
-        "model_loaded": model is not None and scaler is not None
+        "model_loaded": len(loaded_models) > 0 and scaler is not None
     })
 
 
@@ -201,16 +257,16 @@ def index():
 def health():
     """Health check endpoint."""
     return jsonify({
-        "status": "healthy" if model is not None and scaler is not None else "unhealthy",
-        "model_loaded": model is not None,
+        "status": "healthy" if loaded_models and scaler is not None else "degraded",
+        "models_loaded": list(loaded_models.keys()),
         "scaler_loaded": scaler is not None
     })
 
 
 @app.route('/features', methods=['GET'])
 def features():
-    """Get list of required features for prediction."""
-    feature_descriptions = {
+    """Get list of required features."""
+    descriptions = {
         'pl_orbper': 'Orbital period (days)',
         'pl_rade': 'Planet radius (Earth radii)',
         'pl_bmasse': 'Planet mass (Earth masses)',
@@ -222,193 +278,72 @@ def features():
         'sy_snum': 'Number of stars in system',
         'sy_pnum': 'Number of planets in system'
     }
-    
     return jsonify({
         "required_features": REQUIRED_FEATURES,
-        "feature_descriptions": feature_descriptions,
-        "count": len(REQUIRED_FEATURES)
+        "descriptions": descriptions
     })
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
     """
-    Predict habitability of an exoplanet.
-    
-    Expected JSON input:
-    {
-        "pl_orbper": float,
-        "pl_rade": float,
-        "pl_bmasse": float,
-        "pl_eqt": float,
-        "st_teff": float,
-        "st_rad": float,
-        "st_mass": float,
-        "sy_dist": float,
-        "sy_snum": int,
-        "sy_pnum": int
-    }
+    Predict habitability.
+    JSON Body: { ...planet_data..., "model_type": "rf"|"xgb"|"lr" }
     """
-    if model is None or scaler is None:
-        return jsonify({
-            "success": False,
-            "error": "Model not loaded. Please check server configuration."
-        }), 503
+    if not loaded_models or not scaler:
+        return jsonify({"success": False, "error": "System initializing or models failed to load."}), 503
     
     try:
         data = request.get_json()
+        if not data:
+            return jsonify({"success": False, "error": "No JSON data provided"}), 400
         
-        if data is None:
-            return jsonify({
-                "success": False,
-                "error": "No JSON data provided"
-            }), 400
-        
-        is_valid, error_message, validated_data = validate_input(data)
-        
+        # Extract model type (default to Random Forest)
+        model_type = data.pop('model_type', 'rf').lower()
+        if model_type not in loaded_models:
+            model_type = 'rf' # Fallback
+            
+        is_valid, error_msg, validated_data = validate_input(data)
         if not is_valid:
-            return jsonify({
-                "success": False,
-                "error": error_message
-            }), 400
+            return jsonify({"success": False, "error": error_msg}), 400
         
-        result = make_prediction(validated_data)
-        
-        if result["success"]:
-            return jsonify(result), 200
-        else:
-            return jsonify(result), 500
+        result = make_prediction(validated_data, model_type)
+        status_code = 200 if result["success"] else 500
+        return jsonify(result), status_code
             
     except Exception as e:
-        return jsonify({
-            "success": False,
-            "error": f"Server error: {str(e)}"
-        }), 500
+        return jsonify({"success": False, "error": f"Server error: {str(e)}"}), 500
 
 
-@app.route('/batch-predict', methods=['POST'])
-def batch_predict():
-    """
-    Batch prediction endpoint for multiple exoplanets.
-    
-    Expected JSON input:
-    {
-        "planets": [
-            {"pl_orbper": 365.25, "pl_rade": 1.0, ...},
-            {"pl_orbper": 100.0, "pl_rade": 2.5, ...}
-        ]
+@app.route('/random-planet', methods=['GET'])
+def random_planet():
+    """Generate a random planet for testing."""
+    planet = {
+        'pl_orbper': round(random.uniform(10, 500), 2),
+        'pl_rade': round(random.uniform(0.5, 2.5), 2),
+        'pl_bmasse': round(random.uniform(0.1, 10.0), 2),
+        'pl_eqt': round(random.uniform(200, 400), 1),
+        'st_teff': round(random.uniform(3000, 7000), 0),
+        'st_rad': round(random.uniform(0.1, 2.0), 2),
+        'st_mass': round(random.uniform(0.1, 2.0), 2),
+        'sy_dist': round(random.uniform(5, 100), 1),
+        'sy_snum': random.randint(1, 3),
+        'sy_pnum': random.randint(1, 8)
     }
-    """
-    if model is None or scaler is None:
-        return jsonify({
-            "success": False,
-            "error": "Model not loaded. Please check server configuration."
-        }), 503
-    
-    try:
-        data = request.get_json()
-        
-        if data is None or 'planets' not in data:
-            return jsonify({
-                "success": False,
-                "error": "Invalid input. Expected {'planets': [...]}"
-            }), 400
-        
-        planets = data['planets']
-        
-        if not isinstance(planets, list):
-            return jsonify({
-                "success": False,
-                "error": "'planets' must be a list"
-            }), 400
-        
-        if len(planets) > 100:
-            return jsonify({
-                "success": False,
-                "error": "Batch size limit exceeded. Maximum 100 planets per request."
-            }), 400
-        
-        results = []
-        errors = []
-        
-        for i, planet in enumerate(planets):
-            is_valid, error_message, validated_data = validate_input(planet)
-            
-            if not is_valid:
-                errors.append({
-                    "index": i,
-                    "error": error_message,
-                    "input": planet
-                })
-            else:
-                prediction = make_prediction(validated_data)
-                results.append({
-                    "index": i,
-                    **prediction
-                })
-        
-        return jsonify({
-            "success": True,
-            "batch_results": results,
-            "errors": errors,
-            "total_processed": len(planets),
-            "successful": len(results),
-            "failed": len(errors)
-        }), 200
-        
-    except Exception as e:
-        return jsonify({
-            "success": False,
-            "error": f"Server error: {str(e)}"
-        }), 500
+    return jsonify({"success": True, "planet": planet})
 
 
-@app.errorhandler(404)
-def not_found(error):
-    """Handle 404 errors."""
-    return jsonify({
-        "success": False,
-        "error": "Endpoint not found. Visit / for API documentation."
-    }), 404
-
-
-@app.errorhandler(500)
-def internal_error(error):
-    """Handle 500 errors."""
-    return jsonify({
-        "success": False,
-        "error": "Internal server error"
-    }), 500
-
-
-# Load model at module level (works for both development and production with gunicorn)
+# Initialize resources on startup
 print("=" * 60)
-print("Exoplanet Habitability Prediction API")
+print("PlanetAI System Initialization")
 print("=" * 60)
-print(f"Loading model from: {MODEL_PATH}")
-print(f"Loading scaler from: {SCALER_PATH}")
-
 if load_model():
-    print("\n✓ Model loaded successfully!")
-    print("\nAvailable endpoints:")
-    print("  GET  /          - API information")
-    print("  GET  /health    - Health check")
-    print("  GET  /features  - List required features")
-    print("  POST /predict   - Single prediction")
-    print("  POST /batch-predict - Batch predictions")
-    print("\n" + "=" * 60)
+    print("✓ System ready.")
+    print(f"Loaded models: {list(loaded_models.keys())}")
 else:
-    print("\n✗ Failed to load model. Please ensure model files exist.")
-    print(f"Current directory: {os.getcwd()}")
-    print(f"Backend directory: {BACKEND_DIR}")
-    print(f"Files in backend: {os.listdir(BACKEND_DIR) if os.path.exists(BACKEND_DIR) else 'Directory not found'}")
-    print("\nExpected files:")
-    print(f"  - {MODEL_PATH}")
-    print(f"  - {SCALER_PATH}")
-
+    print("✗ System initialization failed.")
 
 if __name__ == '__main__':
-    # Use environment variable PORT for deployment platforms
     port = int(os.environ.get('PORT', 5000))
     debug_mode = os.environ.get('FLASK_ENV') != 'production'
     app.run(host='0.0.0.0', port=port, debug=debug_mode)

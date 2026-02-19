@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoplanet Visualizations - PlanetAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo-icon">🪐</span> <a href="/" style="text-decoration: none; color: inherit;">PlanetAI</a>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/learn" class="nav-link">Learn</a>
+            <a href="/candidates" class="nav-link">Candidates</a>
+            <a href="/visualize" class="nav-link active">Visualize</a>
+        </div>
+    </nav>
+
+    <!-- Visualize Section -->
+    <section class="content-section" style="padding-top: 100px;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Exoplanet Analytics</h2>
+                <p>Visualizing data patterns and model interpretability.</p>
+            </div>
+
+            <div class="viz-grid">
+                <!-- Feature Importance Chart -->
+                <div class="viz-card">
+                    <h3>Feature Contribution</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="featureChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Habitability Distribution (Donut) -->
+                <div class="viz-card">
+                    <h3>Habitability Distribution (Validation Set)</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">🪐</span> PlanetAI
+                </div>
+                <p class="copyright">&copy; 2026 PlanetAI Research. Powered by Flask & Scikit-Learn.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+
+</html>
