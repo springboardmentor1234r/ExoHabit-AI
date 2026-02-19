@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Solar System - ExoHabitAI</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #e2e8f0;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        /* Fade Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Star Background */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(white 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 60px;
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e2e8f0;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+            transition: 0.3s ease;
+        }
+
+        .nav-links a.active {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        /* MAIN */
+        .container {
+            padding: 80px 100px;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            color: #38bdf8;
+            margin-bottom: 30px;
+        }
+
+        /* HABITABLE ZONE */
+        .hz-section {
+            margin-bottom: 60px;
+        }
+
+        .hz-bar {
+            position: relative;
+            height: 40px;
+            border-radius: 20px;
+            background: linear-gradient(90deg,
+                #ef4444 0%,
+                #f97316 20%,
+                #22c55e 35%,
+                #22c55e 55%,
+                #3b82f6 75%,
+                #1e3a8a 100%);
+            margin-top: 20px;
+        }
+
+        .hz-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .planet-marker {
+            position: absolute;
+            top: -8px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #0f172a;
+        }
+
+        /* PLANET CARDS */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.85);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            animation: floatUp 0.8s ease forwards;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        .planet-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #38bdf8;
+            margin-bottom: 5px;
+        }
+
+        .score {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .score-bar-container {
+            width: 100%;
+            background: #334155;
+            border-radius: 10px;
+            margin: 10px 0 15px 0;
+        }
+
+        .score-bar {
+            height: 14px;
+            border-radius: 10px;
+            transition: width 0.8s ease;
+        }
+
+        .info {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #94a3b8;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="navbar">
+    <div class="logo">ExoHabitAI 🚀</div>
+    <div class="nav-links">
+        <a href="/about">About</a>
+        <a href="/exoplanets">Exoplanets</a>
+        <a href="/solar-system">Solar System</a>
+        <a href="/dashboard">Model Dashboard</a>
+        <a href="/">Predict Habitability</a>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="hero-title">Solar System Habitability Overview</div>
+
+    <!-- HABITABLE ZONE VISUAL -->
+    <div class="hz-section">
+        <h3>Stellar Habitable Zone Visualization</h3>
+
+        <div class="hz-bar">
+            <div class="planet-marker" style="left:5%;" title="Mercury"></div>
+            <div class="planet-marker" style="left:15%;" title="Venus"></div>
+            <div class="planet-marker" style="left:45%;" title="Earth"></div>
+            <div class="planet-marker" style="left:55%;" title="Mars"></div>
+            <div class="planet-marker" style="left:70%;" title="Jupiter"></div>
+            <div class="planet-marker" style="left:78%;" title="Saturn"></div>
+            <div class="planet-marker" style="left:88%;" title="Uranus"></div>
+            <div class="planet-marker" style="left:95%;" title="Neptune"></div>
+        </div>
+
+        <div class="hz-labels">
+            <span>Too Hot</span>
+            <span>Habitable Zone</span>
+            <span>Too Cold</span>
+        </div>
+    </div>
+
+    <!-- PLANET CARDS -->
+    <div class="cards">
+
+        <!-- MERCURY -->
+        <div class="card">
+            <div class="planet-name">Mercury</div>
+            <div class="score" style="color:#ef4444;">2%</div>
+            <div class="score-bar-container">
+                <div class="score-bar" style="width:2%; background:#ef4444;"></div>
+            </div>
+            <div class="info">
+                <span class="label">Status:</span> Not Habitable ❌ <br>
+                <span class="label">Ranking:</span> Extreme Conditions <br>
+                <span class="label">Confidence:</span> High Confidence <br>
+                <span class="label">Explanation:</span>
+                Extreme temperature fluctuations and lack of atmosphere.
+            </div>
+        </div>
+
+        <!-- VENUS -->
+        <div class="card">
+            <div class="planet-name">Venus</div>
+            <div class="score" style="color:#ef4444;">5%</div>
+            <div class="score-bar-container">
+                <div class="score-bar" style="width:5%; background:#ef4444;"></div>
+            </div>
+            <div class="info">
+                <span class="label">Status:</span> Not Habitable ❌ <br>
+                <span class="label">Ranking:</span> Runaway Greenhouse <br>
+                <span class="label">Confidence:</span> High Confidence <br>
+                <span class="label">Explanation:</span>
+                Dense CO₂ atmosphere causes extreme surface temperatures.
+            </div>
+        </div>
+
+        <!-- EARTH -->
+        <div class="card">
+            <div class="planet-name">Earth 🌍</div>
+            <div class="score" style="color:#22c55e;">99%</div>
+            <div class="score-bar-container">
+                <div class="score-bar" style="width:99%; background:#22c55e;"></div>
+            </div>
+            <div class="info">
+                <span class="label">Status:</span> Habitable ✅ <br>
+                <span class="label">Ranking:</span> Ideal Earth-like ⭐⭐⭐⭐ <br>
+                <span class="label">Confidence:</span> Very High Confidence <br>
+                <span class="label">Explanation:</span>
+                Liquid water, stable atmosphere, and optimal temperature range.
+            </div>
+        </div>
+
+        <!-- MARS -->
+        <div class="card">
+            <div class="planet-name">Mars</div>
+            <div class="score" style="color:#facc15;">35%</div>
+            <div class="score-bar-container">
+                <div class="score-bar" style="width:35%; background:#facc15;"></div>
+            </div>
+            <div class="info">
+                <span class="label">Status:</span> Marginally Habitable ⚠️ <br>
+                <span class="label">Ranking:</span> Weak Habitability Signals ⭐ <br>
+                <span class="label">Confidence:</span> Moderate Confidence <br>
+                <span class="label">Explanation:</span>
+                Evidence of past water but thin atmosphere limits viability.
+            </div>
+        </div>
+
+        <!-- OUTER PLANETS -->
+        <div class="card">
+            <div class="planet-name">Jupiter</div>
+            <div class="score" style="color:#ef4444;">0%</div>
+            <div class="score-bar-container">
+                <div class="score-bar" style="width:0%; background:#ef4444;"></div>
+            </div>
+            <div class="info">
+                <span class="label">Status:</span> Not Habitable ❌ <br>
+                <span class="label">Ranking:</span> Gas Giant <br>
+                <span class="label">Confidence:</span> High Confidence <br>
+                <span class="label">Explanation:</span>
+                No solid surface and extreme radiation levels.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="planet-name">Saturn</div>
+            <div class="score" style="color:#ef4444;">0%</div>
+            <div class="score-bar-container">
+                <div class="score-bar" style="width:0%; background:#ef4444;"></div>
+            </div>
+            <div class="info">
+                <span class="label">Status:</span> Not Habitable ❌ <br>
+                <span class="label">Ranking:</span> Gas Giant <br>
+                <span class="label">Confidence:</span> High Confidence <br>
+                <span class="label">Explanation:</span>
+                Composed mostly of hydrogen and helium.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="planet-name">Uranus</div>
+            <div class="score" style="color:#ef4444;">0%</div>
+            <div class="score-bar-container">
+                <div class="score-bar" style="width:0%; background:#ef4444;"></div>
+            </div>
+            <div class="info">
+                <span class="label">Status:</span> Not Habitable ❌ <br>
+                <span class="label">Ranking:</span> Ice Giant <br>
+                <span class="label">Confidence:</span> High Confidence <br>
+                <span class="label">Explanation:</span>
+                Extremely cold methane-rich atmosphere.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="planet-name">Neptune</div>
+            <div class="score" style="color:#ef4444;">0%</div>
+            <div class="score-bar-container">
+                <div class="score-bar" style="width:0%; background:#ef4444;"></div>
+            </div>
+            <div class="info">
+                <span class="label">Status:</span> Not Habitable ❌ <br>
+                <span class="label">Ranking:</span> Ice Giant <br>
+                <span class="label">Confidence:</span> High Confidence <br>
+                <span class="label">Explanation:</span>
+                Violent winds and extremely low temperatures.
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

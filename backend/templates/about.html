@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About - ExoHabitAI</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #e2e8f0;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        /* PAGE ANIMATION */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* STAR BACKGROUND */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(white 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 60px;
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e2e8f0;
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+
+        .nav-links a.active {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        /* MAIN */
+        .container {
+            padding: 80px 120px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            background: rgba(30, 41, 59, 0.85);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            animation: floatUp 0.8s ease forwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 45px rgba(56,189,248,0.25);
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #38bdf8;
+            margin-bottom: 15px;
+        }
+
+        .text {
+            line-height: 1.8;
+            font-size: 15px;
+            color: #cbd5e1;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #334155;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #1e293b;
+            color: #38bdf8;
+        }
+
+        td {
+            background-color: #0f172a;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="navbar">
+    <div class="logo">ExoHabitAI 🚀</div>
+    <div class="nav-links">
+        <a href="/about" class="active">About</a>
+        <a href="/exoplanets">Exoplanets</a>
+        <a href="/solar-system">Solar System</a>
+        <a href="/dashboard">Model Dashboard</a>
+        <a href="/">Predict Habitability</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="section">
+        <div class="section-title">1. Project Objective 🎯</div>
+        <div class="text">
+            ExoHabitAI predicts the habitability potential of exoplanets 
+            using planetary and stellar parameters obtained from the NASA Exoplanet Archive dataset. 
+            The system applies supervised Machine Learning techniques to classify 
+            exoplanets into habitable or non-habitable categories based on astrophysical constraints.
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">2. Scientific Basis of Habitability 🌍</div>
+        <div class="text">
+            Planetary habitability depends on critical astrophysical factors:
+            <br><br>
+            • Presence of liquid water  
+            • Location within the stellar Habitable Zone  
+            • Moderate equilibrium temperature  
+            • Balanced stellar radiation exposure  
+            • Stable planetary mass and radius  
+            <br><br>
+            Planets too close to their host star may overheat,
+            while distant planets may freeze. ExoHabitAI evaluates
+            these conditions computationally.
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">3. Dataset Source 📊</div>
+        <div class="text">
+            The dataset was obtained from the NASA Exoplanet Archive,
+            including confirmed exoplanets discovered by missions such as
+            Kepler and TESS, along with detailed planetary and stellar parameters.
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">4. Key Features Used 📘</div>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Description</th>
+                <th>Unit</th>
+            </tr>
+            <tr><td>pl_orbper</td><td>Orbital Period</td><td>Days</td></tr>
+            <tr><td>pl_orbsmax</td><td>Semi-Major Axis</td><td>AU</td></tr>
+            <tr><td>pl_bmasse</td><td>Planetary Mass</td><td>Earth Masses</td></tr>
+            <tr><td>pl_eqt</td><td>Equilibrium Temperature</td><td>K</td></tr>
+            <tr><td>st_teff</td><td>Stellar Temperature</td><td>K</td></tr>
+            <tr><td>st_rad</td><td>Stellar Radius</td><td>Solar Radii</td></tr>
+            <tr><td>st_mass</td><td>Stellar Mass</td><td>Solar Masses</td></tr>
+            <tr><td>st_lum</td><td>Stellar Luminosity</td><td>Solar Luminosity</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">5. Data Cleaning & Feature Engineering 🔧</div>
+        <div class="text">
+            Missing values were removed to ensure reliability.  
+            Outliers with extreme physical parameters were filtered.  
+            Derived features such as planetary radius and insolation flux
+            were calculated to improve predictive performance.  
+            A binary habitability label was created using astrophysical thresholds.
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">6. Machine Learning Preparation 🤖</div>
+        <div class="text">
+            Relevant features were selected to model temperature stability
+            and radiation exposure.  
+            The dataset was split into 80% training and 20% testing data.  
+            Proper validation ensured unbiased model performance evaluation.
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

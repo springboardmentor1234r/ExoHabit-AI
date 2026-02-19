@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exoplanets - ExoHabitAI</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #e2e8f0;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(white 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 60px;
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e2e8f0;
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+
+        .nav-links a.active {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 80px 100px;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            color: #38bdf8;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 50px;
+            color: #cbd5e1;
+        }
+
+        /* FIXED 3 COLUMNS */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.85);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            animation: floatUp 0.8s ease forwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 45px rgba(56,189,248,0.3);
+        }
+
+        .card h3 {
+            color: #38bdf8;
+            margin-top: 0;
+        }
+
+        .card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1000px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="navbar">
+    <div class="logo">ExoHabitAI 🚀</div>
+    <div class="nav-links">
+        <a href="/about">About</a>
+        <a href="/exoplanets" class="active">Exoplanets</a>
+        <a href="/solar-system">Solar System</a>
+        <a href="/dashboard">Model Dashboard</a>
+        <a href="/">Predict Habitability</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="hero-title">What Are Exoplanets?</div>
+
+    <div class="description">
+        Exoplanets are planets that orbit stars outside our solar system.
+        Thousands have been discovered using space telescopes and advanced
+        detection techniques. Some may exist in habitable zones where liquid water is possible.
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>🛰️ Detection Methods</h3>
+            <p>Transit and Radial Velocity methods allow scientists to detect exoplanets by observing starlight variations and stellar motion.</p>
+        </div>
+
+        <div class="card">
+            <h3>🌍 Earth-like Candidates</h3>
+            <p>Examples include Kepler-452b and TRAPPIST-1e, located within their star’s habitable zone.</p>
+        </div>
+
+        <div class="card">
+            <h3>⭐ Stellar Influence</h3>
+            <p>Star temperature and luminosity directly influence planetary climate stability.</p>
+        </div>
+
+        <div class="card">
+            <h3>🔭 Scientific Importance</h3>
+            <p>Understanding exoplanets helps estimate the probability of life beyond Earth.</p>
+        </div>
+
+        <div class="card">
+            <h3>🧪 Atmospheric Analysis</h3>
+            <p>Spectroscopy helps detect atmospheric gases like oxygen and methane — potential biosignatures.</p>
+        </div>
+
+        <div class="card">
+            <h3>📊 AI & Data Science</h3>
+            <p>Machine learning models analyze astrophysical datasets to predict planetary habitability.</p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
