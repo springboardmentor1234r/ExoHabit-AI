@@ -171,12 +171,12 @@ Correlation analysis
 Interactive dashboard integration
 
 ## 🖥️ How to Run the Project
-1️⃣ Install dependencies
-- pip install -r requirements.txt
-2️⃣ Run Flask app
-- python app.py
-3️⃣ Open browser
-- http://127.0.0.1:5000/
+- 1️⃣ Install dependencies
+pip install -r requirements.txt
+- 2️⃣ Run Flask app
+python app.py
+- 3️⃣ Open browser
+http://127.0.0.1:5000/
 
 ## 🧾 Pages Description
 
