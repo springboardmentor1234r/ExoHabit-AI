@@ -80,6 +80,8 @@ exoplanet_project/
 └── static/
     └── css/
         └── style.css
+
+        
 ##  📊 Machine Learning Pipeline
 🔹 Input Features
 
@@ -111,7 +113,7 @@ Habitability Score
 
 Habitability Percentage (0–100%)
 
-📈 Dashboard Visualizations
+## 📈 Dashboard Visualizations
 
 The dashboard provides:
 
