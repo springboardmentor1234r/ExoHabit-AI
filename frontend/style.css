@@ -1,0 +1,10 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    border-radius: 10px;
+}
+canvas {
+    height: 300px !important;
+}

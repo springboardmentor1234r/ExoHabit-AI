@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exoplanet Habitability Dashboard</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+        .card {
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+        h2, h4 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        canvas {
+            max-height: 350px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+    <h2>🌌 Exoplanet Habitability Dashboard</h2>
+
+    <!-- ================= USER SUMMARY ================= -->
+    <div class="card">
+        <h4>Your Prediction Summary</h4>
+
+        {% if user_score %}
+            <p><b>Status:</b> {{ user_label }}</p>
+            <p><b>Your Habitability Score:</b> {{ user_score }}</p>
+            <p><b>Dataset Average Score:</b> {{ avg_score }}</p>
+        {% else %}
+            <p>No prediction made yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- ================= DATASET SCATTER (Plotly) ================= -->
+    <div class="card">
+        <h4>Planet Radius vs Planet Mass</h4>
+        <div id="radiusMassScatter"></div>
+    </div>
+
+    <!-- ================= CHART.JS VISUALS ================= -->
+    <div class="row mt-4">
+
+        <!-- Feature Importance -->
+        <div class="col-md-6">
+            <div class="card">
+                <h4>Feature Importance</h4>
+                <canvas id="featureChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Habitability Distribution -->
+        <div class="col-md-6">
+            <div class="card">
+                <h4>Habitability Score Distribution</h4>
+                <canvas id="habitChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Star Temp vs Habitability -->
+    <div class="card">
+        <h4>Star Temperature vs Habitability Score</h4>
+        <canvas id="tempScatter"></canvas>
+    </div>
+
+    <div class="text-center mt-3">
+        <a href="/" class="btn btn-primary">⬅ Back to Home</a>
+    </div>
+
+</div>
+
+<!-- ================= SCRIPT SECTION ================= -->
+<script>
+/* ---------- Plotly: Radius vs Mass ---------- */
+let datasetScatter = {
+    x: JSON.parse('{{ scatter_data | safe }}').map(d => d.x),
+    y: JSON.parse('{{ scatter_data | safe }}').map(d => d.y),
+    mode: 'markers',
+    name: 'Dataset',
+    marker: { color: 'blue', size: 6 }
+};
+
+let traces = [datasetScatter];
+
+{% if user_radius and user_mass %}
+traces.push({
+    x: [{{ user_radius }}],
+    y: [{{ user_mass }}],
+    mode: 'markers',
+    name: 'Your Planet',
+    marker: { color: 'red', size: 14 }
+});
+{% endif %}
+
+Plotly.newPlot("radiusMassScatter", traces, {
+    xaxis: { title: "Planet Radius (Jupiter Radius)" },
+    yaxis: { title: "Planet Mass (Jupiter Mass)" }
+});
+
+/* ---------- Feature Importance ---------- */
+const featureData = {{ feature_importance | safe }};
+new Chart(document.getElementById("featureChart"), {
+    type: "bar",
+    data: {
+        labels: featureData.map(f => f.feature),
+        datasets: [{
+            data: featureData.map(f => f.importance),
+            backgroundColor: "#0dcaf0"
+        }]
+    },
+    options: {
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+    }
+});
+
+/* ---------- Habitability Distribution ---------- */
+new Chart(document.getElementById("habitChart"), {
+    type: "bar",
+    data: {
+        labels: {{ habit_labels | safe }},
+        datasets: [{
+            data: {{ habit_values | safe }},
+            backgroundColor: "#198754"
+        }]
+    },
+    options: {
+        plugins: { legend: { display: false } }
+    }
+});
+
+/* ---------- Star Temp vs Habitability ---------- */
+new Chart(document.getElementById("tempScatter"), {
+    type: "scatter",
+    data: {
+        datasets: [{
+            label: "Exoplanets",
+            data: {{ scattered_data | safe }},
+            backgroundColor: "#dc3545"
+        }]
+    },
+    options: {
+        scales: {
+            x: { title: { display: true, text: "Star Temperature (K)" }},
+            y: { title: { display: true, text: "Habitability Score" }}
+        }
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exoplanet Habitability System</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    >
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .hero {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-weight: bold;
+        }
+        .card {
+            border-radius: 14px;
+            box-shadow: 0px 8px 25px rgba(0,0,0,0.25);
+        }
+        .btn {
+            font-weight: bold;
+        }
+        .section {
+            padding: 60px 20px;
+        }
+        .step-box {
+            background: white;
+            color: #333;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<!-- HERO SECTION -->
+<div class="hero">
+    <h1>🌌 Exoplanet Habitability Prediction</h1>
+    <p class="mt-3">
+        AI-powered system to evaluate whether distant planets can support life
+    </p>
+
+    <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+        <a href="/predict" class="btn btn-primary btn-lg">🔮 Predict</a>
+        <a href="/rankings" class="btn btn-success btn-lg">🏆 Rankings</a>
+        <a href="/dashboard" class="btn btn-warning btn-lg">📊 Dashboard</a>
+    </div>
+</div>
+
+<!-- HOW IT WORKS SECTION -->
+<div class="section bg-light text-dark">
+    <div class="container">
+        <h2 class="text-center mb-5">How This System Works</h2>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="step-box">
+                    <h4>📥 Input Data</h4>
+                    <p>
+                        Enter planetary parameters like radius, mass,
+                        temperature, and orbital period.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="step-box">
+                    <h4>🧠 AI Analysis</h4>
+                    <p>
+                        Machine learning models analyze features
+                        to estimate habitability probability.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="step-box">
+                    <h4>🌍 Results</h4>
+                    <p>
+                        Get habitability score, prediction,
+                        and compare with top exoplanets.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="text-center py-4">
+    <small>
+        Built using Flask, Machine Learning & NASA Exoplanet Data
+    </small>
+</div>
+
+</body>
+</html>

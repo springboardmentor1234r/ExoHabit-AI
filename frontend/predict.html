@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Predict Habitability</h2>
+
+<form method="POST">
+
+<input class="form-control mb-3" name="pl_radj" placeholder="Planet Radius" required>
+<input class="form-control mb-3" name="pl_bmassj" placeholder="Planet Mass" required>
+<input class="form-control mb-3" name="pl_eqt" placeholder="Equilibrium Temperature" required>
+<input class="form-control mb-3" name="st_teff" placeholder="Star Temperature" required>
+<input class="form-control mb-3" name="pl_orbper" placeholder="Orbital Period" required>
+
+<button class="btn btn-info">Predict</button>
+
+</form>
+
+{% endblock %}
