@@ -1,10 +1,10 @@
-#🌌 ExoHabit-AI — Exoplanet Habitability Prediction System
-##🚀 Project Overview
+# 🌌 ExoHabit-AI — Exoplanet Habitability Prediction System
+## 🚀 Project Overview
 
 ExoHabit-AI is a full-stack machine learning web application designed to analyze exoplanet and stellar data to predict the habitability potential of distant planets.
 The system combines scientific feature engineering, machine learning, and an interactive dashboard to provide meaningful insights into which exoplanets could potentially support life.
 
-##🎯 Key Objectives
+## 🎯 Key Objectives
 
 Predict whether an exoplanet is Habitable or Not Habitable
 
@@ -16,7 +16,7 @@ Visualize planetary and stellar relationships through a dashboard
 
 Provide an end-to-end ML + Web solution
 
-##🧠 Features
+## 🧠 Features
 
 ✅ Habitability prediction using engineered scientific features
 
@@ -30,7 +30,7 @@ Provide an end-to-end ML + Web solution
 
 ✅ Modular Flask backend
 
-##🛠️ Tech Stack
+## 🛠️ Tech Stack
 🔹 Programming & ML
 
 Python
@@ -61,7 +61,7 @@ Seaborn
 
 Chart.js
 
-##📂 Project Structure
+## 📂 Project Structure
 exoplanet_project/
 │
 ├── app.py
@@ -80,7 +80,7 @@ exoplanet_project/
 └── static/
     └── css/
         └── style.css
-##📊 Machine Learning Pipeline
+##  📊 Machine Learning Pipeline
 🔹 Input Features
 
 Planet Radius
@@ -123,7 +123,7 @@ The dashboard provides:
 
 📌 User planet comparison with dataset average
 
-##🧪 Milestones & Project Status
+## 🧪 Milestones & Project Status
 ✅ Phase 0: Project Initialization
 
 Environment setup
@@ -168,14 +168,14 @@ Correlation analysis
 
 Interactive dashboard integration
 
-##🖥️ How to Run the Project
+## 🖥️ How to Run the Project
 1️⃣ Install dependencies
 pip install -r requirements.txt
 2️⃣ Run Flask app
 python app.py
 3️⃣ Open browser
 http://127.0.0.1:5000/
-##🧾 Pages Description
+## 🧾 Pages Description
 
 Home Page – Project introduction
 
@@ -187,7 +187,7 @@ Rankings Page – Sorted exoplanet list
 
 Dashboard Page – Visual analytics
 
-##📌 Sample Prediction Output
+## 📌 Sample Prediction Output
 Status: Habitable 🌍
 Habitability Score: 2.1
 Model Confidence: 100%
