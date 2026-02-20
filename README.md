@@ -77,9 +77,9 @@ exoplanet_project/
 │   ├── rankings.html
 │   └── dashboard.html
 │
-└── static/
-    └── css/
-        └── style.css
+├── static/
+   └── css/
+      └── style.css
 
         
 ##  📊 Machine Learning Pipeline
@@ -172,11 +172,12 @@ Interactive dashboard integration
 
 ## 🖥️ How to Run the Project
 1️⃣ Install dependencies
-pip install -r requirements.txt
+- pip install -r requirements.txt
 2️⃣ Run Flask app
-python app.py
+- python app.py
 3️⃣ Open browser
-http://127.0.0.1:5000/
+- http://127.0.0.1:5000/
+
 ## 🧾 Pages Description
 
 Home Page – Project introduction
@@ -193,3 +194,7 @@ Dashboard Page – Visual analytics
 Status: Habitable 🌍
 Habitability Score: 2.1
 Model Confidence: 100%
+
+## 🌟 Conclusion
+ExoHabit-AI demonstrates how machine learning, data science, and web development can be combined to solve real scientific problems.
+This project showcases skills in ML modeling, feature engineering, visualization, and full-stack development.
