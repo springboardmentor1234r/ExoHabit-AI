@@ -10,3 +10,4 @@ requests
 plotly
 gunicorn
 openpyxl
+flask-cors
