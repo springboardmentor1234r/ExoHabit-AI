@@ -151,9 +151,12 @@ ExoHabitAI/
 - Node.js 16 or higher
 - npm or yarn
 
+<<<<<<< HEAD
 ### Clone Repository
 git clone https://github.com/yourusername/exohabitai.git
 cd exohabitai
+=======
+>>>>>>> 93825b92a961318a3ff086bb58df60c43617a37c
 ## 🤖 Model Training
 
 ### Option 1: Local Training
@@ -502,6 +505,7 @@ const API_BASE_URL = 'http://localhost:5000';
 rm -rf node_modules package-lock.json
 npm install
 
+<<<<<<< HEAD
 ## 🤝 Contributing
 Contributions are welcome! Please follow these steps:
 1. Fork the repository
@@ -509,3 +513,6 @@ Contributions are welcome! Please follow these steps:
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+=======
+#
+>>>>>>> 93825b92a961318a3ff086bb58df60c43617a37c
