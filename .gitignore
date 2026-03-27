@@ -1,0 +1,72 @@
+# -----------------------
+# Python / Virtualenv
+# -----------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.so
+*.dll
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Local config
+*.log
+*.tmp
+*.swp
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# -----------------------
+# Build / Packaging
+# -----------------------
+build/
+dist/
+*.egg-info/
+.eggs/
+*.manifest
+*.spec
+
+# -----------------------
+# IDE / Editor
+# -----------------------
+.vscode/
+.idea/
+*.code-workspace
+*.cursor/
+
+# -----------------------
+# Data (keep local only)
+# -----------------------
+data/
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.h5
+*.hdf5
+*.npz
+*.npy
+
+# -----------------------
+# Model artifacts
+# -----------------------
+models/*.pkl
+models/*.joblib
+models/*.h5
+models/model_metrics.json
+models/top_habitable_planets.json
+models/plots/
+
+# -----------------------
+# OS-specific
+# -----------------------
+.DS_Store
+Thumbs.db
+desktop.ini
